@@ -7,7 +7,7 @@ module inst_memory (
 
   logic [31:0] imem [0:2048];
   initial begin
-    $readmemh("D:/HCMUT/Year_2025_2026/251/Conmputer_Organization/milestone_3/00_Design/lcd_vscode.dump",imem);
+    $readmemh("D:/HCMUT/Year_2025_2026/251/Conmputer_Organization/milestone_3/00_Design/Test_Inst_Pl.dump",imem);
     
   end
   always @(*) begin

@@ -109,8 +109,6 @@ module lsu (
     .i_lsu_addr(i_lsu_addr[31:0]),
     .o_ld_data(o_ld_data)
     );	
-
-
 endmodule
 
 module datamem (
@@ -157,31 +155,37 @@ module datamem (
   end
 endmodule
 
+`ifndef DEMUX_SEL_MEM
+`define DEMUX_SEL_MEM
+
 module demux_sel_mem (
-    input logic [31:0] i_lsu_addr,
-    output logic en_datamem,
-    output logic en_op_buf  
+    input logic [31:0]  i_lsu_addr,
+    output logic        en_datamem,
+    output logic        en_op_buf  
   );
   parameter START_DATAMEM = 32'h0000_0000;
-  parameter END_DATAMEM = 32'h0000_0800;
-  parameter START_OP_BF = 32'h1000_0000;
-  parameter END_OP_BF = 32'h1000_5000;
+  parameter END_DATAMEM   = 32'h0000_0800;
+  parameter START_OP_BF   = 32'h1000_0000;
+  parameter END_OP_BF     = 32'h1000_5000;
 
   always @(*) begin
-    if ((i_lsu_addr >= START_DATAMEM) && (i_lsu_addr < END_DATAMEM)) begin
-      en_datamem = 1'b1;
-      en_op_buf = 1'b0;
+    en_datamem  = 1'b0;
+    en_op_buf   = 1'b0;
+    if (i_lsu_addr[31:28]==4'b0) begin //0xxx_xxxx
+      en_datamem  = 1'b1;
+      en_op_buf   = 1'b0;
     end
-    else if ((i_lsu_addr >= START_OP_BF) && (i_lsu_addr < END_OP_BF)) begin
-      en_datamem = 1'b0;
-      en_op_buf = 1'b1;
+    else if (i_lsu_addr[19:16]==4'b0) begin //1xx0_xxxx
+      en_datamem  = 1'b0;
+      en_op_buf   = 1'b1;
     end
-    else begin
-      en_datamem = 1'b0;
-      en_op_buf = 1'b0;
+    else begin //1xx1_xxxx
+      en_datamem  = 1'b0;
+      en_op_buf   = 1'b0;
     end
   end
 endmodule
+`endif
 
 module output_buffer(
   input logic [2:0] slt_sl, // chọn store/load kiểu gì (W H B HU BU)

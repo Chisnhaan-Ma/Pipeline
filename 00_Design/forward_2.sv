@@ -27,7 +27,6 @@ module forward(
             else o_fwd_operand_a_execute = 2'b00;
 
             //-------------Forward operand b ALU -----------------------
-            // Forward operand B alu
             if ((i_fwd_rd_addr_at_mem != 5'd0) && (i_fwd_rd_addr_at_mem == rs2_addr_execute)&&(i_fwd_rd_wren_at_mem))
                 o_fwd_operand_b_execute = 2'b01;  // Forward từ MEM
 

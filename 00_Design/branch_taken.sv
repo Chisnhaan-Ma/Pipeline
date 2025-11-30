@@ -13,8 +13,8 @@ module branch_taken (
                 3'b001: o_pc_sel = ~i_br_equal_mem;       // BNE
                 3'b100: o_pc_sel = i_br_less_mem;         // BLT
                 3'b101: o_pc_sel = ~i_br_less_mem;        // BGE
-                3'b110: o_pc_sel = i_br_less_mem;         // BLTU
-                3'b111: o_pc_sel = ~i_br_less_mem;        // BGEU
+                3'b110: o_pc_sel = ~i_br_less_mem;         // BLTU
+                3'b111: o_pc_sel = i_br_less_mem;        // BGEU
                 default: o_pc_sel= 1'bz;
             endcase
         end

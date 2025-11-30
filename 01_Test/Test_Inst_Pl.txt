@@ -1,0 +1,99 @@
+#Start test R type and Data hazard, Forwarding  
+    lui     x1, 0x12345
+    addi    x2, x0, 3
+    addi    x3, x0, 5	
+    sub     x5, x3, x2	#Forward form MEM & WriteBack
+    add     x6, x1, x3
+    slt     x7, x3, x1
+    sll     x8, x1, x3
+    sltu    x9, x1, x2
+    srl     x10, x1, x2
+    sra     x11, x1, x2
+    or      x12, x1, x2
+    and     x13, x1, x2
+    addi    x1, x1, 0x7FF
+
+#Start test Store and Load, Stalling 
+    sw      x1, 0(x0)	#Forward for S type form MEM
+    sw      x1, 4(x0)	#Forward for S type form WriteBack
+    lw      x18, 0(x0)
+    lb      x19, 4(x0)
+    lh      x20, 0(x0)
+    lhu     x21, 4(x0)
+    addi    x2, x21, 1 	#Stall
+    ori     x22, x2, 255
+    
+    nop
+    nop
+    nop
+#Start test B type
+#innitial Branch test
+    addi x1, x0, 5
+    addi x2, x0, 3
+    addi x3, x0, -9
+    addi x4, x0, 5
+
+    beq x1, x4, BEQ_JMP
+    addi x10, x0, 1
+    addi x10, x0, 1
+    
+BEQ_JMP:
+    addi x10, x0, 2
+    addi x10, x0, 2
+    
+BEQ_NO_JMP:
+    addi x10, x0, 3
+    addi x10, x0, 3
+    
+    beq  x1, x2, BEQ_NO_JMP #No jmp (5 != 3)
+    addi x10, x0, 4 #Do
+    addi x10, x0, 4 #Do
+    
+    bne x2, x3, BNE_JMP # Jmp (3 != -9)
+    addi x10, x0, 5
+    addi x10, x0, 5
+    
+BNE_JMP:
+    blt x2, x3, BLT_JMP #No jmp (3 > -9)
+    addi x10, x0, 6 #Do
+    addi x10, x0, 6 #Do
+    
+BLT_JMP:
+    bge x3, x2, BGE_JMP #No jmp (-9 < 3)
+    addi x10, x0, 7 #Do
+    addi x10, x0, 7 #Do
+    
+BGE_JMP:
+    bltu x2, x3, BLTU_JMP #Jmp 0x3 < 0xFFFF.FFF7
+    addi x10, x0, 8
+    addi x10, x0, 8
+    
+BLTU_JMP:
+    bgeu x3, x2, BGEU_JMP #Jmp 0xFFFF.FFF7 > 0x03
+    addi x10, x0, 9
+    addi x10, x0, 9
+    
+BGEU_JMP:
+    addi x10, x0, 10 #Do
+    addi x10, x0, 10 #Do
+    addi x10, x0, 10 #Do
+    
+    nop
+    nop
+    nop
+    
+#Start test J type
+    addi x1, x0, 0x20       # x1 = 0x20
+    jal x5, JUMP_TARGET     # x5 = địa chỉ lệnh sau jal (PC + 4), nhảy tới JUMP_TARGET
+    addi x10, x0, 11        # KHÔNG được thực hiện nếu nhảy thành công
+
+JUMP_TARGET:
+    addi x6, x5, 1	# x6 = x5 + 1 để test giá trị x5 (đã lưu PC + 4)
+    addi x1, x0, 0xCC
+    addi x1, x0, 0xCC
+    jalr x8, x0(0x0)         # x8 = địa chỉ sau jalr, nhảy về đầu chương trình
+    
+    addi x10, x0, 0x11        # KHÔNG được thực hiện nếu nhảy thành công
+    addi x10, x0, 0x11        # KHÔNG được thực hiện nếu nhảy thành công
+    addi x10, x0, 0x11        # KHÔNG được thực hiện nếu nhảy thành công
+#End test J type

@@ -32,63 +32,63 @@ logic Stall;
 logic flush;
 
 //Input fetch for jump
-logic pc_sel;
-logic [31:0] o_mem_alu_data;
+logic           pc_sel;
+logic [31:0]    o_mem_alu_data;
 
 //Output fetch -> Input decode
-logic [31:0] pc_decode;
-logic [31:0] inst_decode;
+logic [31:0]    pc_decode;
+logic [31:0]    inst_decode;
 
 //Output writeback -> Input decode
-logic [31:0] rd_data_decode;
-logic [4:0] rd_addr_decode;
-logic rd_wren_decode;
+logic [31:0]    rd_data_decode;
+logic [4:0]     rd_addr_decode;
+logic           rd_wren_decode;
 
 //Output decode -> input execute
-logic [31:0] inst_execute;
-logic [31:0] pc_execute;
-logic asel_execute;
-logic bsel_execute;
-logic [31:0] rs1_data_execute;
-logic [31:0] rs2_data_execute;
-logic [31:0] imm_out_execute;
-logic [3:0]  alu_op_execute;
-logic br_un_execute;
-logic lsu_wren_execute;
-logic [2:0] slt_sl_execute;
-logic [1:0] wb_sel_execute;
-logic rd_wren_execute;
+logic [31:0]    inst_execute;
+logic [31:0]    pc_execute;
+logic           asel_execute;
+logic           bsel_execute;
+logic [31:0]    rs1_data_execute;
+logic [31:0]    rs2_data_execute;
+logic [31:0]    imm_out_execute;
+logic [3:0]     alu_op_execute;
+logic           br_un_execute;
+logic           lsu_wren_execute;
+logic [2:0]     slt_sl_execute;
+logic [1:0]     wb_sel_execute;
+logic           rd_wren_execute;
 
 //Ouput execute -> input memory
-logic br_equal_mem;
-logic br_less_mem;
-logic [31:0] alu_data_mem;
-logic [31:0] pc_mem;
-logic [31:0] rs2_data_mem;
-logic [31:0] inst_mem;
-logic lsu_wren_mem;
-logic [2:0] slt_sl_mem;
-logic [1:0] wb_sel_mem;
-logic rd_wren_mem;
+logic           br_equal_mem;
+logic           br_less_mem;
+logic [31:0]    alu_data_mem;
+logic [31:0]    pc_mem;
+logic [31:0]    rs2_data_mem;
+logic [31:0]    inst_mem;
+logic           lsu_wren_mem;
+logic [2:0]     slt_sl_mem;
+logic [1:0]     wb_sel_mem;
+logic           rd_wren_mem;
 
 //Outpit memory -> input Writeback
-logic [31:0] pc_add4_wb;
-logic [31:0] alu_data_wb;
-logic [31:0] inst_wb;
-logic [1:0]  wb_sel_wb;
-logic rd_wren_wb;
-logic [31:0] ld_data_wb;
+logic [31:0]    pc_add4_wb;
+logic [31:0]    alu_data_wb;
+logic [31:0]    inst_wb;
+logic [1:0]     wb_sel_wb;
+logic           rd_wren_wb;
+logic [31:0]    ld_data_wb;
 
 //Fix load hazard
-logic [4:0] rs1_addr_decode;
-logic [4:0] rs2_addr_decode;
-logic [4:0] rd_addr_mem;
-logic [4:0] rd_addr_wb;
-logic [1:0] fwd_operand_a;
-logic [1:0] fwd_operand_b;
-logic [1:0] fwd_rs2;
-logic [1:0] fwd_brc_a;
-logic [1:0] fwd_brc_b;
+logic [4:0]     rs1_addr_decode;
+logic [4:0]     rs2_addr_decode;
+logic [4:0]     rd_addr_mem;
+logic [4:0]     rd_addr_wb;
+logic [1:0]     fwd_operand_a;
+logic [1:0]     fwd_operand_b;
+logic [1:0]     fwd_rs2;
+logic [1:0]     fwd_brc_a;
+logic [1:0]     fwd_brc_b;
 
 logic [31:0] o_execute_alu_data_decode;
     fetch_cycle fetch_top(
