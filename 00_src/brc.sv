@@ -1,6 +1,6 @@
 `ifndef BRC
 `define BRC
-`include "add_sub_32_bit.sv"
+//`include "add_sub_32_bit.sv"
 module  brc (
 	//  input
 	input  logic  [31:0]  i_rs1_data,

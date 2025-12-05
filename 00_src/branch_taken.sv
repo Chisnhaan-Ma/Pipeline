@@ -12,50 +12,14 @@ module branch_taken (
     localparam BLTU = 3'b110;
     localparam BGEU = 3'b111;
 	always_comb begin
-        // B Type
-        if (i_inst_mem[6:0] == 7'b1100011) begin
+        if (i_inst_mem[6:0] == 7'b1100011) begin : B_TYPE
             case (i_inst_mem[14:12])
-               /*
-                BEQ: begin 
-                    if (i_br_equal_mem == 1'b1)
-                        o_pc_sel = 1'b1;
-                    else o_pc_sel = 1'b0; 
-                end   
-                BNE: begin 
-                    if (i_br_equal_mem == 1'b0)
-                        o_pc_sel = 1'b1;
-                    else o_pc_sel = 1'b0; 
-                end
-                BLT: begin 
-                    if (i_br_less_mem == 1'b1)
-                        o_pc_sel = 1'b1;
-                    else o_pc_sel = 1'b0; 
-                end
-                BGE: begin 
-                    if (i_br_less_mem == 1'b0)
-                        o_pc_sel = 1'b1;
-                    else o_pc_sel = 1'b0; 
-                end
-                BLTU: begin 
-                    if (i_br_less_mem == 1'b1)
-                        o_pc_sel = 1'b1;
-                    else o_pc_sel = 1'b0; 
-                end
-                BGEU: begin 
-                    if (i_br_less_mem == 1'b0)
-                        o_pc_sel = 1'b1;
-                    else o_pc_sel = 1'b0; 
-                end
-
-                default: o_pc_sel = 1'b0;
-                */
-                
-                3'b000:   o_pc_sel = i_br_equal_mem;
-				3'b001:   o_pc_sel = ~i_br_equal_mem;	//BNE
-				3'b100:   o_pc_sel = i_br_less_mem;	    //BLT
-				3'b101:   o_pc_sel = ~i_br_less_mem;    //BGE
-				3'b110:   o_pc_sel = i_br_less_mem;	    //BLTU
-				3'b111:   o_pc_sel = ~i_br_less_mem;	//BGEU
+                BEQ:   o_pc_sel = i_br_equal_mem;    //BEQ
+				BNE:   o_pc_sel = ~i_br_equal_mem;	 //BNE
+				BLT:   o_pc_sel = i_br_less_mem;	 //BLT
+				BGE:   o_pc_sel = ~i_br_less_mem;    //BGE
+				BLTU:   o_pc_sel = i_br_less_mem;	 //BLTU
+				BGEU:   o_pc_sel = ~i_br_less_mem;	 //BGEU
                 default: o_pc_sel= 1'b0;
                 
             endcase

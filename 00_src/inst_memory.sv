@@ -7,7 +7,7 @@ module inst_memory (
 
   logic [31:0] imem [0:2048];
   initial begin
-    $readmemh("/home/yellow/ctmt_l01_l02_4/workspace/milestone_3/02_test/isa_4b_ms2.hex",imem);
+    $readmemh("/home/yellow/ctmt_l01_l02_4/workspace/milestone_3/02_test/isa_4b_ms3.hex",imem);
     
   end
   always @(*) begin

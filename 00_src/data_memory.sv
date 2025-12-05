@@ -1,3 +1,4 @@
+/*
 `ifndef DATA_MEMORY
 `define DATA_MEMORY
 module data_memory(
@@ -31,3 +32,4 @@ module data_memory(
 
 endmodule
 `endif
+*/

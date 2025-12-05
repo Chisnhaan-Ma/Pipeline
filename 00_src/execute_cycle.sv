@@ -1,7 +1,7 @@
-`include "brc.sv"
-`include "mux3_1.sv"
-`include "mux2_1.sv"
-`include "alu.sv"
+//`include "brc.sv"
+//`include "mux3_1.sv"
+//`include "mux2_1.sv"
+//`include "alu.sv"
 //chưa add insn valid///////
 module execute_cycle(
     input logic         i_execute_clk,
@@ -32,13 +32,11 @@ module execute_cycle(
 
     // Input từ MEM cho flush
     input logic         flush,
+    input logic         i_stall,
 
     // Input từ Forwarding control
     input logic [1:0]   i_execute_fwd_operand_a,
     input logic [1:0]   i_execute_fwd_operand_b,
-    //input logic [1:0]   i_execute_fwd_rs2,
-    //input logic [1:0]   i_execute_fwd_brc_a, 
-    //input logic [1:0]   i_execute_fwd_brc_b,
 
     // Data forwarding từ MEM và WriteBack
     input logic [31:0]  i_execute_fwd_alu_data,
@@ -140,7 +138,7 @@ module execute_cycle(
     );
 
     // Pipeline registers
-    always_ff @ (posedge i_execute_clk /*or posedge i_execute_reset*/) begin
+    always_ff @ (posedge i_execute_clk ) begin
         if (i_execute_reset) begin
             pc_reg          <= 32'd0;
             inst_reg        <= 32'h00000013; // NOP
@@ -156,6 +154,12 @@ module execute_cycle(
             ctrl_reg <= 1'b0;    
         end 
         
+        /*
+        else if(i_stall) begin
+            inst_reg     <= 32'h00000013; // NOP khi i_stall
+            $display("STALL EX_MEM");
+        end
+        */
 		else if (flush) begin
 			pc_reg       <= 32'b0;//i_execute_pc; //pc_reg;
             inst_reg     <= 32'h00000013; // NOP khi i_flush
@@ -198,6 +202,6 @@ module execute_cycle(
     assign o_execute_br_equal_mem   = br_equal_reg;
     assign o_execute_br_less_mem    = br_less_reg;  
     assign o_execute_insn_vld_mem   = insn_vld_reg;
-    assign o_execute_alu_data_decode = alu_data;
-    assign o_execute_ctrl = ctrl_reg;
+    assign o_execute_alu_data_decode= alu_data;
+    assign o_execute_ctrl           = ctrl_reg;
 endmodule

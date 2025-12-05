@@ -1,7 +1,7 @@
 // Author: Nhan Ma C
 `ifndef SLT_SLTU
 `define SLT_SLTU 
-`include "add_sub_32_bit.sv"
+
 module slt_sltu (
     input  logic [31:0] A, B,  // Input A, B
     input  logic Sel,          // 0 = SLT (có dấu), 1 = SLTU (không dấu)

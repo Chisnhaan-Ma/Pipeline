@@ -1,9 +1,9 @@
 `ifndef DECODE_CYCLE
 `define DECODE_CYCLE
-`include "regfile.sv"
-`include "imm_gen.sv"
-`include "control_unit_new.sv"
-`include "mux2_1.sv"
+//`include "regfile.sv"
+//`include "imm_gen.sv"
+//`include "control_unit_new.sv"
+//`include "mux2_1.sv"
 module decode_cycle(
     input logic         i_decode_clk,
     input logic         i_decode_reset,
@@ -86,8 +86,8 @@ module decode_cycle(
     logic sel_forward_decode;
 
     assign rd_addr_execute = o_decode_inst_ex[11:7];
-    assign rs1_addr_decode= i_decode_inst[19:15];
-    assign rs2_addr_decode= i_decode_inst[24:20];
+    assign rs1_addr_decode = i_decode_inst[19:15];
+    assign rs2_addr_decode = i_decode_inst[24:20];
 
     regfile regfile_at_decode (
         .i_clk      (i_decode_clk),
@@ -105,7 +105,6 @@ Control unit của pipeline khác với của single cycle, dự đoán luôn nh
  -> bỏ các tín hiệu liên quan đến nhảy */
     control_unit_new control_unit_at_decode (
         .i_inst         (i_decode_inst),
-        //.o_insn_vld_ctrl(insn_vld_ctrl),
         .o_imm_sel      (imm_sel),
         .o_rd_wren      (rd_wren),
         .o_br_un        (br_un),
@@ -124,23 +123,7 @@ Control unit của pipeline khác với của single cycle, dự đoán luôn nh
         .o_imm_out      (imm_out)
     );
 
-/*
-    forward_decode forward_at_decode (
-        .i_rd_addr_execute (rd_addr_execute),
-        .i_rs1_addr_decode (rs1_addr_decode),
-        .i_rs2_addr_decode (rs2_addr_decode),
-        .i_rd_wren_execute (o_decode_rd_wren_ex),
-        .o_sel_2           (sel_forward_decode)
-    );
-
-    mux_2_1 mux_forward_decode (
-      .data_1_i      (i_decode_alu_data_execute), 
-      .data_0_i      (rs2_data_D ), 
-      .sel_i         (sel_2), 
-      .data_out_o    (data_br_2  )
-      );
-*/
-    always_ff @(posedge i_decode_clk /*or posedge i_decode_reset*/) begin
+    always_ff @(posedge i_decode_clk ) begin
         if (i_decode_reset) begin
             imm_out_reg   <= 32'b0;
             data_1_reg    <= 32'b0;

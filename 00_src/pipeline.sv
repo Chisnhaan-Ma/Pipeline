@@ -1,34 +1,38 @@
 `ifndef PIPILINE
 `define PIPELINE
-`include "fetch_cycle.sv"
-`include "decode_cycle.sv"
-`include "execute_cycle.sv"
-`include "memory_cycle.sv"
-`include "writeback_cycle.sv"
-`include "branch_taken.sv"
-`include "forward_2.sv"
-`include "hazard_load.sv"
+//`include "fetch_cycle.sv"
+//`include "decode_cycle.sv"
+//`include "execute_cycle.sv"
+//`include "memory_cycle.sv"
+//`include "writeback_cycle.sv"
+//`include "branch_taken.sv"
+//`include "forward_2.sv"
+//`include "hazard_load.sv"
 module pipelined (
     input logic i_clk,
     input logic i_reset,
 
-    // Input IO switch
-    input  logic [31:0]  i_io_sw,
+    // Input IO 
+    input  logic [31:0] i_io_sw,
+
+    // Output LED, HEX, LCD
     output logic [31:0] o_io_ledr, 
     output logic [31:0] o_io_ledg,
-    output logic [6:0] o_io_hex0, 
-    output logic [6:0] o_io_hex1, 
-    output logic [6:0] o_io_hex2,   
-    output logic [6:0] o_io_hex3, 
-    output logic [6:0] o_io_hex4, 
-    output logic [6:0] o_io_hex5, 
-    output logic [6:0] o_io_hex6,   
-    output logic [6:0] o_io_hex7, 
+    output logic [6:0]  o_io_hex0, 
+    output logic [6:0]  o_io_hex1, 
+    output logic [6:0]  o_io_hex2,   
+    output logic [6:0]  o_io_hex3, 
+    output logic [6:0]  o_io_hex4, 
+    output logic [6:0]  o_io_hex5, 
+    output logic [6:0]  o_io_hex6,   
+    output logic [6:0]  o_io_hex7, 
     output logic [31:0] o_io_lcd,
-    output logic o_insn_vld,
+
+    // Output debug signals
+    output logic        o_insn_vld,
     output logic [31:0] o_pc_debug,
-    output logic o_ctrl,
-    output logic o_mispred 
+    output logic        o_ctrl,
+    output logic        o_mispred 
 );
 logic Stall;
 logic flush;
@@ -178,14 +182,11 @@ logic ctrl_wb;
         .i_execute_insn_vld     (insn_vld_execute),
 
         .flush                  (flush),
+        .i_stall                (Stall),
 
         .i_execute_fwd_operand_a(fwd_operand_a),
         .i_execute_fwd_operand_b(fwd_operand_b),
-        /*
-        .i_execute_fwd_rs2      (fwd_rs2),
-        .i_execute_fwd_brc_a    (fwd_brc_a),
-        .i_execute_fwd_brc_b    (fwd_brc_b),
-        */
+        
         .i_execute_fwd_alu_data (alu_data_mem),
         .i_execute_fwd_wb_data  (rd_data_decode),
 
@@ -278,12 +279,13 @@ logic ctrl_wb;
         .o_wb_ctrl          (X)
     );
     
-    hazard_load hazard_load_top(
+    hazard_detection hazard_load_top(
         .i_hazard_inst_execute      (inst_execute),
         .i_hazard_rs1_addr_decode   (rs1_addr_decode),
         .i_hazard_rs2_addr_decode   (rs2_addr_decode),
         .i_hazard_wb_sel_execute    (wb_sel_execute),
         .i_hazard_rd_wren_execute   (rd_wren_execute),
+        .i_hazard_inst_decode       (inst_decode),
         .Stall                      (Stall)
     );
 
@@ -306,20 +308,17 @@ logic ctrl_wb;
   
     );
 
-    logic y;
     always_ff @ (negedge i_clk) begin
-           //$display(" INST_WB = %h, PC_DEBUG = %h, load_data = %h, data_writeback = %h, stall = %h",inst_wb, o_pc_debug, ld_data_wb, rd_data_decode, Stall);
-           // $display("INST_WB = %h, PC_DEBUG = %h, O_CTRL = %h, O_INSN_VLD = %h, O_MISPREDICT= %h,, LED_REG = %h TIME = %4.h", inst_wb, o_pc_debug, o_ctrl, o_insn_vld, o_mispred, o_io_ledr, $time);
+        //$display(" INST_WB = %h, PC_DEBUG = %h, load_data = %h, data_writeback = %h, stall = %h",inst_wb, o_pc_debug, ld_data_wb, rd_data_decode, Stall);
+       //$display("INST_WB = %h, PC_DEBUG = %h, O_CTRL = %h, O_INSN_VLD = %h, O_MISPREDICT= %h,, LED_REG = %h, RD_ADDR = %h, WB_DATA = %h, time = %d", inst_wb, o_pc_debug, o_ctrl, o_insn_vld, o_mispred, o_io_ledr,rd_addr_decode, rd_data_decode, $time);
     end
     
     always_ff @ (posedge i_clk) begin
             o_mispred  <= flush;
     end
-            //assign o_pc_debug = pc_debug_wb;
-            //assign o_mispred  = flush;
-
-            assign o_insn_vld = insn_vld_wb;
-            assign o_pc_debug = (o_insn_vld) ? pc_debug_wb : 32'b0;
-            assign o_ctrl = ctrl_wb;
+           
+    assign o_insn_vld = insn_vld_wb;
+    assign o_pc_debug = (o_insn_vld) ? pc_debug_wb : 32'b0;
+    assign o_ctrl = ctrl_wb;
 endmodule
 `endif

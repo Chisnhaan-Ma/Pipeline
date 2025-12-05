@@ -1,15 +1,15 @@
-`include "full_adder.sv"
+//`include "full_adder.sv"
 `ifndef ADD_SUB_32_BIT
 `define ADD_SUB_32_BIT
 module add_sub_32_bit (
-    input  logic [31:0] A, B,  // Input A, B
-    input  logic Sel,          // 0 = ADD, 1 = SUB
-    output logic [31:0] Result,// Kết quả phép cộng 
-    output logic Cout);          // Carry-out
+    input  logic [31:0] A, B,   // Input A, B
+    input  logic Sel,           // 0 = ADD, 1 = SUB
+    output logic [31:0] Result, // Kết quả phép cộng 
+    output logic Cout);         // Carry-out
 
-    logic [31:0] B_mod;        // 
-    logic Cin;                 // Carry-in
-    logic [31:0] carry;  // Carry signals
+    logic [31:0] B_mod;         
+    logic Cin;                  // Carry-in
+    logic [31:0] carry;         // Carry signals
     assign B_mod = (Sel) ? ~B : B;  // Bù 2 của B
 
     full_adder FA0(

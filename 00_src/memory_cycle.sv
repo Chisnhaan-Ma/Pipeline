@@ -1,9 +1,7 @@
 `ifndef MEMORY_CYCLE
 `define MEMORY_CYCLE
-`include "add_sub_32_bit.sv"
-`include "lsu_ms2.sv"
-`include "lsu_new.sv"
-
+////`include "add_sub_32_bit.sv"
+////`include "lsu_new.sv"
 module memory_cycle(
     input logic         i_clk,
     input logic         i_reset,
@@ -85,7 +83,7 @@ module memory_cycle(
      logic [6:0]    io_hex5, io_hex5_reg;
      logic [6:0]    io_hex6, io_hex6_reg;
      logic [6:0]    io_hex7, io_hex7_reg;
-     logic [31:0]   io_lcd, io_lcd_reg;
+     logic [31:0]   io_lcd,  io_lcd_reg;
      logic [31:0]   pc_debug_reg;
      logic          ctrl_reg;
 
@@ -97,7 +95,7 @@ module memory_cycle(
         .Result(PC_add4_internal)
     );
 
-    lsu_ms2 lsu_memory(
+    lsu_new lsu_memory(
         .i_clk          (i_clk),
         .i_reset        (i_reset),
 
@@ -125,10 +123,10 @@ module memory_cycle(
 
     always_ff @(posedge i_clk /*or posedge i_reset*/) begin
         if (i_reset) begin
-            pc_add4_reg     <= 32'd0;
-            alu_data_reg    <= 32'd0;
-            inst_reg        <= 32'd0;
-            wb_sel_reg      <= 0;
+            pc_add4_reg <= 32'd0;
+            alu_data_reg<= 32'd0;
+            inst_reg    <= 32'd0;
+            wb_sel_reg  <= 0;
             rd_wren_reg <= 0;
             ld_data_reg <= 32'b0;
             io_ledr_reg <= 32'b0;
@@ -142,9 +140,9 @@ module memory_cycle(
             io_hex6_reg <= 7'b0;
             io_hex7_reg <= 7'b0;
             io_lcd_reg  <= 32'b0;
-            insn_vld_reg   <= 0;
-            pc_debug_reg <= 0;
-            ctrl_reg <= 0;  
+            insn_vld_reg<= 0;
+            pc_debug_reg<= 0;
+            ctrl_reg    <= 0;  
 
         end else begin
             pc_add4_reg     <= PC_add4_internal;
@@ -169,7 +167,7 @@ module memory_cycle(
             */
             insn_vld_reg <= i_mem_insn_vld;
             pc_debug_reg <= i_mem_pc;
-            ctrl_reg <= i_mem_ctrl;
+            ctrl_reg     <= i_mem_ctrl;
         end
     end
 
@@ -179,17 +177,17 @@ module memory_cycle(
     assign o_mem_wb_sel_wb      = wb_sel_reg;
     assign o_mem_rd_wren_wb     = rd_wren_reg;
     assign o_mem_ld_data_wb     = ld_data_reg;
-    assign o_mem_io_ledr_wb     = io_ledr;//_reg;
-    assign o_mem_io_ledg_wb     = io_ledg;//_reg;
-    assign o_mem_io_hex0_wb     = io_hex0;//_reg; 
-    assign o_mem_io_hex1_wb     = io_hex1;//_reg;
-    assign o_mem_io_hex2_wb     = io_hex2;//_reg;   
-    assign o_mem_io_hex3_wb     = io_hex3;//_reg; 
-    assign o_mem_io_hex4_wb     = io_hex4;//_reg; 
-    assign o_mem_io_hex5_wb     = io_hex5;//_reg; 
-    assign o_mem_io_hex6_wb     = io_hex6;//_reg;   
-    assign o_mem_io_hex7_wb     = io_hex7;//_reg; 
-    assign o_mem_io_lcd_wb      = io_lcd; //_reg;
+    assign o_mem_io_ledr_wb     = io_ledr;
+    assign o_mem_io_ledg_wb     = io_ledg;
+    assign o_mem_io_hex0_wb     = io_hex0; 
+    assign o_mem_io_hex1_wb     = io_hex1;
+    assign o_mem_io_hex2_wb     = io_hex2;   
+    assign o_mem_io_hex3_wb     = io_hex3; 
+    assign o_mem_io_hex4_wb     = io_hex4; 
+    assign o_mem_io_hex5_wb     = io_hex5; 
+    assign o_mem_io_hex6_wb     = io_hex6;   
+    assign o_mem_io_hex7_wb     = io_hex7; 
+    assign o_mem_io_lcd_wb      = io_lcd; 
     assign o_mem_rd_addr_fwd    = i_mem_inst[11:7]; // o_mem_rd_addr_fwd cho forward
     assign o_mem_insn_vld_wb    = insn_vld_reg;
     assign o_mem_pc_debug       = pc_debug_reg;

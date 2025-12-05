@@ -1,6 +1,8 @@
 `ifndef LSU
 `define LSU
-`include "mux3_1.sv"
+////`include "data_memory.sv"
+////`include "load_unit.sv"
+////`include "mux3_1.sv"
 /*------------------------------------------------------------*/
 
 
@@ -60,14 +62,14 @@ module lsu_new (
 
 /*-------- Data mem --------*/
   datamem mem (
-    .i_clk(i_clk),
+    .i_clk  (i_clk),
     .i_reset(i_reset),
-    .i_wren(i_lsu_wren),
-    .slt_sl(slt_sl),
-    .i_enb(en_datamem),
-    .i_addr(i_lsu_addr[15:0]), // 16 bits cao giong nhau -> xet 16 bit thap
-    .i_data(i_st_data),
-    .o_data(data_out_3)
+    .i_wren (i_lsu_wren),
+    .slt_sl (slt_sl),
+    .i_enb  (en_datamem),
+    .i_addr (i_lsu_addr[15:0]), // XXXXXXXXx
+    .i_data (i_st_data),
+    .o_data (data_out_3)
   );
 
 /*-------- DEMUX --------*/
@@ -110,6 +112,7 @@ module lsu_new (
 
 
 endmodule
+
 module datamem (
   input logic i_clk,
   input logic i_reset,
@@ -120,7 +123,7 @@ module datamem (
   input logic [31:0] i_data,
   output logic [31:0] o_data
 );
-  logic [31:0] data_mem [2047:0];
+  logic [31:0] data_mem [16383:0];
   logic [31:0] data_bs,data_tmp;
 
   data_trsf trsf_st (
@@ -138,9 +141,9 @@ module datamem (
     data_bs = data_mem [i_addr[15:2]];
   end
 
-  always_ff @(posedge i_clk /*or posedge i_reset*/) begin
+  always_ff @(posedge i_clk ) begin
     if (i_reset) begin
-      for (int i=0;i<2048; i++) begin
+      for (int i=0;i<16384; i++) begin
         data_mem[i] <= 0;
       end
     end
@@ -153,6 +156,7 @@ module datamem (
     end
   end
 endmodule
+
 
 module datamem_syn (
   input  logic        i_clk,
@@ -179,7 +183,7 @@ module datamem_syn (
   );
 
   // synchronous read AND synchronous write
-  always_ff @(posedge i_clk /*or posedge i_reset*/) begin
+  always_ff @(posedge i_clk) begin
     if (i_reset) begin
       for (int i = 0; i < 16384; i++)
         data_mem[i] <= 32'h0;
@@ -206,11 +210,6 @@ module demux_sel_mem (
     output logic        en_datamem,
     output logic        en_op_buf  
   );
-  parameter START_DATAMEM = 32'h0000_0000;
-  parameter END_DATAMEM   = 32'h0001_0000;
-  parameter START_OP_BF   = 32'h1000_0000;
-  parameter END_OP_BF     = 32'h1000_5000;
-
   always @(*) begin
     en_datamem  = 1'b0;
     en_op_buf   = 1'b0;
@@ -447,16 +446,19 @@ module mux_3_1_lsu(
   logic [1:0] addr_sel ;
  
   always @(*) begin
-    case (i_lsu_addr[31:12])
-      20'h1001_0:  addr_sel  =  2'b00; // SW
-      20'h1000_4:  addr_sel  =  2'b01; //LCD
-      20'h1000_3:  addr_sel  =  2'b01; //7-seg
-      20'h1000_2:  addr_sel  =  2'b01; //7-seg
-      20'h1000_1:  addr_sel  =  2'b01; //GRL
-      20'h1000_0:  addr_sel  =  2'b01; //RL
-      20'h0000_0:  addr_sel  =  2'b10; //MEM
-      default addr_sel = 2'b11; 
-    endcase
+    if (i_lsu_addr[31:16] == 16'h0000) addr_sel = 2'b10;
+    else begin
+      case (i_lsu_addr[31:12])
+        20'h1001_0:  addr_sel  =  2'b00; // SW
+        20'h1000_4:  addr_sel  =  2'b01; //LCD
+        20'h1000_3:  addr_sel  =  2'b01; //7-seg
+        20'h1000_2:  addr_sel  =  2'b01; //7-seg
+        20'h1000_1:  addr_sel  =  2'b01; //GRL
+        20'h1000_0:  addr_sel  =  2'b01; //RL
+        //20'h0000_7:  addr_sel  =  2'b10; //MEM 0x0000_0000 -> 0x0000_FFFF
+        default addr_sel = 2'b11; 
+      endcase
+    end
   end
   always @(*) begin
     case(addr_sel)

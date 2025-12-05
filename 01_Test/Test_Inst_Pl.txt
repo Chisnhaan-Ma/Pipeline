@@ -15,7 +15,6 @@
 
 #Start test Store and Load, Stalling 
     sw      x1, 0(x0)	#Forward for S type form MEM
-    sw      x1, 4(x0)	#Forward for S type form WriteBack
     lw      x18, 0(x0)
     lb      x19, 4(x0)
     lh      x20, 0(x0)

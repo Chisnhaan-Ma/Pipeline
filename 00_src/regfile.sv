@@ -18,7 +18,7 @@ module regfile (
   logic [31:0] Reg [31:0];
 
   // --- RESET + WRITE LOGIC ---
-  always_ff @(posedge i_clk) begin : RESET_WRITE_LOGIC
+  always_ff @(posedge i_clk) begin : RESET_and_WRITE
       if (i_reset) begin
         // Reset tất cả 32 thanh ghi về 0
         for (int i = 0; i < 32; i++) begin
@@ -32,8 +32,8 @@ module regfile (
       end
       else begin end
     end
-
-    always_comb begin : READ_LOGIC
+  
+    always_comb begin : READ
       if ((i_rs1_addr == 5'd0))begin
         o_rs1_data = 32'b0;
       end
