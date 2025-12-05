@@ -1,10 +1,9 @@
+// Author: Nhu Bui
 `ifndef LSU
 `define LSU
 ////`include "data_memory.sv"
 ////`include "load_unit.sv"
 ////`include "mux3_1.sv"
-/*------------------------------------------------------------*/
-
 
 /*------------------------------------------------------------*/
 
@@ -52,13 +51,19 @@ module lsu_new (
   logic [31:0] data_out_1, data_out_2, data_out_3; // IO_switchs - peripheral registers - Data (SRAM)
   logic en_datamem;
   logic en_op_buf;
-  //logic ACK;
+  logic [31:0] ld_data_tmp;
+  
 /*-------- Input buffer --------*/
   logic [31:0] INPUT;
   always_ff @(posedge i_clk) begin // ghi đồng bộ
-    INPUT <= i_io_sw; 
+    INPUT <= i_io_sw;
   end
   assign data_out_1 = i_reset ? 32'd0: INPUT; // đọc bất đồng bộ
+
+/*---------Syn Read------------*/
+ always_ff @ (posedge i_clk) begin
+    o_ld_data <= ld_data_tmp; 
+ end
 
 /*-------- Data mem --------*/
   datamem mem (
@@ -101,16 +106,15 @@ module lsu_new (
     .io_hex6_o     (o_io_hex6), 
     .io_hex7_o     (o_io_hex7)
 	  );
+
 /*-------- MUX --------*/
   mux_3_1_lsu mux31  (
     .in_data_3_i(data_out_3), 
     .in_data_2_i(data_out_2), 
     .in_data_1_i(data_out_1), 
     .i_lsu_addr(i_lsu_addr[31:0]),
-    .o_ld_data(o_ld_data)
+    .o_ld_data(ld_data_tmp)
     );	
-
-
 endmodule
 
 module datamem (
@@ -187,12 +191,14 @@ module datamem_syn (
     if (i_reset) begin
       for (int i = 0; i < 16384; i++)
         data_mem[i] <= 32'h0;
+        //o_data <= 32'b0;
     end
     else if (i_enb) begin
       if (i_wren)
         data_mem[i_addr[15:2]] <= data_tmp; // --- synchronous write ---
       else 
         data_bs <= data_mem[i_addr[15:2]];  // --- synchronous read ---
+        //o_data <= data_tmp;
     end
   end
 
@@ -444,7 +450,7 @@ module mux_3_1_lsu(
   output logic [31:0] o_ld_data
 );
   logic [1:0] addr_sel ;
- 
+  //logic [31:0] load_data_tmp;
   always @(*) begin
     if (i_lsu_addr[31:16] == 16'h0000) addr_sel = 2'b10;
     else begin
@@ -468,6 +474,11 @@ module mux_3_1_lsu(
     default: o_ld_data = 32'd0;    
     endcase
   end
+/*
+  always_ff @ (posedge i_clk) begin
+	o_ld_data <= load_data_tmp;
+  end
+  */
 endmodule
 
 /*------------------------------------------------------------*/
