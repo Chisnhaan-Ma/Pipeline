@@ -144,6 +144,7 @@ Control unit của pipeline khác với của single cycle, dự đoán luôn nh
 		  else if (i_decode_stall) begin
             // Khi i_decode_stall: Giữ lại toàn bộ dữ liệu cũ, nhưng chèn NOP
             inst_reg      <= 32'h00000013; // chỉ thay đổi instruction
+            //insn_vld_ctrl_reg <= 1'b0;
         end 
 		  else if (i_decode_flush) begin
 			imm_out_reg   <= 32'b0;

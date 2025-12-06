@@ -72,20 +72,26 @@ module memory_cycle(
     logic           insn_vld_reg;
     
 
-     logic [31:0]   ld_data, ld_data_reg;
-     logic [31:0]   io_ledr, io_ledr_reg;
-     logic [31:0]   io_ledg, io_ledg_reg;
-     logic [6:0]    io_hex0, io_hex0_reg; 
-     logic [6:0]    io_hex1, io_hex1_reg;
-     logic [6:0]    io_hex2, io_hex2_reg;
-     logic [6:0]    io_hex3, io_hex3_reg;
-     logic [6:0]    io_hex4, io_hex4_reg;
-     logic [6:0]    io_hex5, io_hex5_reg;
-     logic [6:0]    io_hex6, io_hex6_reg;
-     logic [6:0]    io_hex7, io_hex7_reg;
-     logic [31:0]   io_lcd,  io_lcd_reg;
-     logic [31:0]   pc_debug_reg;
-     logic          ctrl_reg;
+    logic [31:0]   ld_data, ld_data_reg;
+    logic [31:0]   io_ledr, io_ledr_reg;
+    logic [31:0]   io_ledg, io_ledg_reg;
+    logic [6:0]    io_hex0, io_hex0_reg; 
+    logic [6:0]    io_hex1, io_hex1_reg;
+    logic [6:0]    io_hex2, io_hex2_reg;
+    logic [6:0]    io_hex3, io_hex3_reg;
+    logic [6:0]    io_hex4, io_hex4_reg;
+    logic [6:0]    io_hex5, io_hex5_reg;
+    logic [6:0]    io_hex6, io_hex6_reg;
+    logic [6:0]    io_hex7, io_hex7_reg;
+    logic [31:0]   io_lcd,  io_lcd_reg;
+    logic [31:0]   pc_debug_reg;
+    logic          ctrl_reg;
+    logic [6:0]    opcode_mem;
+    logic          internal_stall;
+
+    assign opcode_mem = i_mem_inst[6:0];
+
+    //assign internal_stall = (opcode_mem == 7'b0000011) 1'b1 : 1'b0;
 
     // PC + 4
     add_sub_32_bit PC_add4_at_memory (
@@ -95,7 +101,7 @@ module memory_cycle(
         .Result(PC_add4_internal)
     );
 
-    lsu_new lsu_memory(
+    lsu_syn lsu_memory(
         .i_clk          (i_clk),
         .i_reset        (i_reset),
 
@@ -144,7 +150,13 @@ module memory_cycle(
             pc_debug_reg<= 0;
             ctrl_reg    <= 0;  
 
-        end else begin
+        end 
+        /*
+        else if (internal_stall) begin
+            inst_reg    <= inst_reg;
+        end
+        */
+        else begin
             pc_add4_reg     <= PC_add4_internal;
             alu_data_reg    <= i_mem_alu_data;
             inst_reg        <= i_mem_inst;
@@ -176,7 +188,7 @@ module memory_cycle(
     assign o_mem_inst_wb        = inst_reg;
     assign o_mem_wb_sel_wb      = wb_sel_reg;
     assign o_mem_rd_wren_wb     = rd_wren_reg;
-    assign o_mem_ld_data_wb     = ld_data_reg;
+    assign o_mem_ld_data_wb     = ld_data;//_reg;
     assign o_mem_io_ledr_wb     = io_ledr;
     assign o_mem_io_ledg_wb     = io_ledg;
     assign o_mem_io_hex0_wb     = io_hex0; 

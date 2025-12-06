@@ -47,18 +47,19 @@ module writeback_cycle(
     localparam JALR = 7'b110_0111; //0x67
     localparam JAL =  7'b110_1111; //0x37
     logic [6:0] opcode_wb;
+    logic [31:0] data_wb;
     mux_3_1 mux_3_1_at_writeback (
         .data_0_i      (i_wb_ld_data), 
         .data_1_i      (i_wb_alu_data), 
         .data_2_i      (i_wb_pc_add4), 
         .sel_i         (i_wb_wb_sel  ), 
-        .data_out_o    (o_wb_data_wb )
+        .data_out_o    (o_wb_data_wb)
     );
     assign o_wb_rd_addr = i_wb_inst[11:7];
     assign o_wb_rd_wren = i_wb_rd_wren;
     assign o_wb_rd_data_fwd = i_wb_inst[11:7];
     assign opcode_wb = i_wb_inst[6:0];
-    
+    //assign o_wb_data_wb = (i_wb_inst == 32'h00000013 ) ? data_wb: 32'b0;
     always_comb begin
         if ((opcode_wb == BR)||(opcode_wb == JAL) || (opcode_wb == JALR)) o_wb_ctrl = 1'b1;
         else o_wb_ctrl = 1'b0;

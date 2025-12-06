@@ -1,13 +1,13 @@
 // Author: Nhu Bui
-`ifndef LSU
-`define LSU
+//`ifndef LSU
+//`define LSU
 ////`include "data_memory.sv"
 ////`include "load_unit.sv"
 ////`include "mux3_1.sv"
 
 /*------------------------------------------------------------*/
 
-module lsu_new (
+module lsu_syn (
     input logic i_clk, 
     input logic i_reset, 
     input logic i_lsu_wren,
@@ -67,7 +67,7 @@ module lsu_new (
 //---------Syn Read------------
  always_ff @ (posedge i_clk) begin
     data_out_1 <= input_bf_tmp;
-    data_out_2 <= output_bf_tmp;
+    //data_out_2 <= output_bf_tmp;
     slt_sl_tmp <= slt_sl; 
  end
 
@@ -99,7 +99,7 @@ module lsu_new (
     .st_en_2_i     (i_lsu_wren),
     .i_clk         (i_clk), 
     .i_reset       (i_reset),
-    .data_out_2_o  (output_bf_tmp /*data_out_2*/), 
+    .data_out_2_o  (/*output_bf_tmp*/ data_out_2), 
     .io_lcd_o      (o_io_lcd), 
     .io_ledg_o     (o_io_ledg), 
     .io_ledr_o     (o_io_ledr), 
@@ -124,7 +124,7 @@ module lsu_new (
     );	
 endmodule
 
-module datamem (
+module datamem_syn (
   input logic i_clk,
   input logic i_reset,
   input logic i_wren,
@@ -168,59 +168,152 @@ module datamem (
   end
 endmodule
 
+module mask_st_create
+  (
+    input logic [2:0] i_slt_sl,
+    input logic [1:0] i_addr_sp,
+    output logic[3:0] o_byte_mask
+  );
+  localparam SW = 3'b010, SB = 3'b000, SH = 3'b001;
+  localparam LW = 3'b101, LB = 3'b011, LH = 3'b100;
+  localparam LBU = 3'b110, LHU = 3'b111;
+
+  always_comb begin
+    case (i_slt_sl)
+      SW:   o_byte_mask = 4'b1111;
+      SB:   begin
+          case (i_addr_sp)
+            2'b00:   o_byte_mask = 4'b0001;
+            2'b01:   o_byte_mask = 4'b0010;
+            2'b10:   o_byte_mask = 4'b0100;
+            2'b11:   o_byte_mask = 4'b1000;
+            default: o_byte_mask = 4'b0001;
+          endcase
+        end
+      SH:   begin
+          case (i_addr_sp)
+            2'b00:   o_byte_mask = 4'b0011;
+            2'b01:   o_byte_mask = 4'b0011;
+            2'b10:   o_byte_mask = 4'b1100;
+            2'b11:   o_byte_mask = 4'b1100;
+            default: o_byte_mask = 4'b0011;
+          endcase
+        end
+      default: o_byte_mask = 4'b1111;
+    endcase
+  end
+endmodule
+
+module mask_ld_create
+  (
+    input logic [2:0] i_slt_sl,
+    input logic [1:0] i_addr_sp,
+    output logic[3:0] o_byte_mask
+  );
+  localparam SW = 3'b010, SB = 3'b000, SH = 3'b001;
+  localparam LW = 3'b101, LB = 3'b011, LH = 3'b100;
+  localparam LBU = 3'b110, LHU = 3'b111;
+
+  always_comb begin
+    case (i_slt_sl)
+      LW:   o_byte_mask = 4'b1111;
+      LB:   begin
+          case (i_addr_sp)
+            2'b00:   o_byte_mask = 4'b0001;
+            2'b01:   o_byte_mask = 4'b0010;
+            2'b10:   o_byte_mask = 4'b0100;
+            2'b11:   o_byte_mask = 4'b1000;
+            default: o_byte_mask = 4'b0001;
+          endcase
+        end
+      LH:   begin
+          case (i_addr_sp)
+            2'b00:   o_byte_mask = 4'b0011;
+            2'b01:   o_byte_mask = 4'b0011;
+            2'b10:   o_byte_mask = 4'b1100;
+            2'b11:   o_byte_mask = 4'b1100;
+            default: o_byte_mask = 4'b0011;
+          endcase
+        end
+      LBU:  begin
+          case (i_addr_sp)
+            2'b00:   o_byte_mask = 4'b0001;
+            2'b01:   o_byte_mask = 4'b0010;
+            2'b10:   o_byte_mask = 4'b0100;
+            2'b11:   o_byte_mask = 4'b1000;
+            default: o_byte_mask = 4'b0001;
+          endcase
+        end
+      LHU:  begin
+          case (i_addr_sp)
+            2'b00:   o_byte_mask = 4'b0011;
+            2'b01:   o_byte_mask = 4'b0011;
+            2'b10:   o_byte_mask = 4'b1100;
+            2'b11:   o_byte_mask = 4'b1100;
+            default: o_byte_mask = 4'b0011;
+          endcase
+        end
+    endcase
+  end
+endmodule
 
 module datamem_syn (
-  input  logic        i_clk,
-  input  logic        i_reset,
-  input  logic        i_wren,
-  input  logic        i_enb,
-  input  logic [2:0]  slt_sl,
-  input  logic [15:0] i_addr, 
-  input  logic [31:0] i_data,
-  output logic [31:0] o_data
-);
+    input  logic        i_clk,
+    input  logic        i_reset,
+    input  logic        i_wren,
+    input  logic        i_enb,
+    input  logic [2:0]  slt_sl,
+    input  logic [15:0] i_addr, 
+    input  logic [31:0] i_data,
+    output logic [31:0] o_data
+    );
+    logic [31:0] data_mem [16383:0];
+    logic [3:0] bmask_st, bmask_ld;
+    logic [31:0] data_ld_bf;
 
-  // 64 KiB = 16384 words
-  logic [31:0] data_mem [16383:0];
-  logic [31:0] data_bs, data_tmp;
-  logic wr_en_tmp;
-  logic en_tmp;
-  logic [2:0] slt_sl_tmp;
-  logic [15:0] addr_tmp;
+    mask_st_create mask_st (
+        .i_slt_sl    (slt_sl),
+        .i_addr_sp   (i_addr[1:0]),
+        .o_byte_mask (bmask_st)
+    );
+    mask_ld_create mask_ld (
+        .i_slt_sl    (slt_sl),
+        .i_addr_sp   (i_addr[1:0]),
+        .o_byte_mask (bmask_ld)
+    );
 
-  always_ff @ (posedge i_clk) begin
-    wr_en_tmp <= i_wren;
-    en_tmp <= i_enb;
-    slt_sl_tmp <= slt_sl;
+    always_ff @(posedge i_clk) begin
+        if (i_reset) begin
+            for (int i = 0; i < 16384; i++)
+                data_mem[i] <= 32'h0;
+        end
+        else if (i_enb) begin
+            if (i_wren) begin
+                if (bmask_st[0]) data_mem[{i_addr[15:2],2'b00}] <= i_data[7:0];
 
-  end
+                if (bmask_st[1]) data_mem[{i_addr[15:2],2'b01}] <= i_data[15:8];
 
-  data_trsf trsf_st (
-    .slt_sl (slt_sl),
-    .addr_sp(i_addr[1:0]),
-    .wr_en  (i_wren),
-    .data_bf(i_data),
-    .data_bs(data_bs),
-    .data_af(data_tmp)
-  );
+                if (bmask_st[2]) data_mem[{i_addr[15:2],2'b10}] <= i_data[23:16];
 
-  // synchronous read AND synchronous write
-  always_ff @(posedge i_clk) begin
-    if (i_reset) begin
-      for (int i = 0; i < 16384; i++)
-        data_mem[i] <= 32'h0;
-        //o_data <= 32'b0;
+                if (bmask_st[3]) data_mem[{i_addr[15:2],2'b11}] <= i_data[31:24];
+            end
+            else 
+            data_ld_bf <= data_mem[i_addr[15:2]];  // --- synchronous read ---
+        end
     end
-    else if (i_enb) begin
-      if (i_wren)
-        data_mem[i_addr[15:2]] <= data_tmp; // --- synchronous write ---
-      else 
-        data_bs <= data_mem[i_addr[15:2]];  // --- synchronous read ---
-        //o_data <= data_tmp;
-    end
-  end
 
-    assign o_data = (i_reset == 1'b1) ? 32'h0: data_tmp;
+
+    always_comb begin
+        if (i_reset)
+            o_data = 32'b0;
+        else
+            begin
+                o_data  [7:0]   =   data_ld_bf  [7:0]   & bmask_ld [0];
+                o_data  [15:8]  =   data_ld_bf  [15:8]  & bmask_ld [1];
+                o_data  [23:16] =   data_ld_bf  [23:16] & bmask_ld [2];
+                o_data  [31:24] =   data_ld_bf  [31:24] & bmask_ld [3];
+            end
+    end
 
 endmodule
 
@@ -258,12 +351,12 @@ module output_buffer(
        LW = 3'b101, LB = 3'b011, LH = 3'b100;
        LBU = 3'b110, LHU = 3'b111;
     */
-  input logic [31:0] st_data_2_i, // data
+    input logic [31:0] st_data_2_i, // data
 	input logic [31:0] addr_2_i, // address
-  input logic en_bf, // en
+    input logic en_bf, // en
 	input logic st_en_2_i, //write enable
 	input logic i_clk,
-  input logic i_reset,
+    input logic i_reset,
 
 	output logic [31:0] data_out_2_o, // data out -> mux
 	output logic [31:0] io_lcd_o,
@@ -279,10 +372,58 @@ module output_buffer(
 	output logic [6:0] io_hex7_o
 	 );
 
-  logic [31:0] data_bs,data_tmp;
-  logic [31:0] MEMBF [0:4];
+  //logic [31:0] data_bs,data_tmp;
+    logic [31:0] MEMBF [0:4];
+    logic [3:0] bmask_st, bmask_ld;
+    logic [31:0] data_ld_bf;
 
-  assign data_out_2_o = (i_reset == 1'b1) ? 32'h0: data_tmp;
+    mask_st_create mask_st_output_bf (
+        .i_slt_sl    (slt_sl),
+        .i_addr_sp   (addr_2_i[1:0]),
+        .o_byte_mask (bmask_st)
+    );
+    mask_ld_create mask_ld_output_bf (
+        .i_slt_sl    (slt_sl),
+        .i_addr_sp   (addr_2_i[1:0]),
+        .o_byte_mask (bmask_ld)
+    );
+
+   always_ff @(posedge i_clk) begin
+        if (i_reset) begin
+            MEMBF[0] <= '0;
+            MEMBF[1] <= '0;
+            MEMBF[2] <= '0;
+            MEMBF[3] <= '0;
+            MEMBF[4] <= '0;
+        end
+        else if (en_bf) begin
+            if (st_en_2_i) begin
+                if (bmask_st[0]) MEMBF[addr_2_i[15:12]][7:0] <= st_data_2_i[7:0];
+
+                if (bmask_st[1]) MEMBF[addr_2_i[15:12]][15:8] <= st_data_2_i[15:8];
+
+                if (bmask_st[2]) MEMBF[addr_2_i[15:12]][23:16] <= st_data_2_i[23:16];
+
+                if (bmask_st[3]) MEMBF[addr_2_i[15:12]][31:24] <= st_data_2_i[31:24];
+            end
+            //else 
+            data_ld_bf <= MEMBF[addr_2_i[15:12]];  // --- synchronous read ---
+        end
+    end
+
+    always_comb begin
+        if (i_reset)
+            data_out_2_o = 32'b0;
+        else
+            begin
+                data_out_2_o  [7:0]   =   data_ld_bf  [7:0]   & bmask_ld [0];
+                data_out_2_o  [15:8]  =   data_ld_bf  [15:8]  & bmask_ld [1];
+                data_out_2_o  [23:16] =   data_ld_bf  [23:16] & bmask_ld [2];
+                data_out_2_o  [31:24] =   data_ld_bf  [31:24] & bmask_ld [3];
+            end
+    end
+
+
   assign io_ledr_o =  MEMBF[0];
   assign io_ledg_o =  MEMBF[1];
   assign io_hex0_o =  MEMBF[2][6:0];  
@@ -295,53 +436,6 @@ module output_buffer(
   assign io_hex7_o =  MEMBF[3][30:24];    
   assign io_lcd_o  =  MEMBF[4];  
 
-  data_trsf trsf_st (
-    .slt_sl(slt_sl),
-    .addr_sp(addr_2_i[1:0]),
-    .wr_en(st_en_2_i),
-    .data_bf(st_data_2_i),
-    .data_bs(data_bs),
-    .data_af(data_tmp)
-  );
-
-  always @(*) begin
-    case(addr_2_i[15:12])
-      4'h0: data_bs = MEMBF[0]; // LED Red
-      4'h1: data_bs = MEMBF[1]; // led green
-      4'h2: data_bs = MEMBF[2];// HEX 0-3
-      4'h3: data_bs = MEMBF[3];// HEX 4-7
-      4'h4: data_bs = MEMBF[4]; //lcd
-      default data_bs = 32'h0;
-    endcase
-  end
-
-  always_ff @(posedge i_clk or posedge i_reset) begin
-    if (i_reset) begin
-      MEMBF[0] <= '0;
-      MEMBF[1] <= '0;
-      MEMBF[2] <= '0;
-      MEMBF[3] <= '0;
-      MEMBF[4] <= '0;
-    end
-    else if (en_bf) begin
-      if (st_en_2_i) begin
-        case(addr_2_i[15:12])
-          4'h0: MEMBF[0] <= data_tmp; // LED Red
-          4'h1: MEMBF[1] <= data_tmp; // led green
-          4'h2: MEMBF[2] <= data_tmp; // HEX 0-3
-          4'h3: MEMBF[3] <= data_tmp; //HEX 4-7
-          4'h4: MEMBF[4] <= data_tmp; //lcd
-          default: begin
-            MEMBF[0] <= MEMBF[0];
-            MEMBF[1] <= MEMBF[1];
-            MEMBF[2] <= MEMBF[2];
-            MEMBF[3] <= MEMBF[3];
-            MEMBF[4] <= MEMBF[4];
-          end
-        endcase
-      end      
-    end
-  end
 endmodule
 
 module  data_trsf
@@ -497,4 +591,4 @@ module mux_3_1_lsu(
 endmodule
 
 /*------------------------------------------------------------*/
-`endif
+//`endif
