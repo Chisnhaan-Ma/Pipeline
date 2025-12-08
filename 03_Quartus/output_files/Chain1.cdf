@@ -4,7 +4,7 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(EP2C35F672) Path("D:/HCMUT/Year_2025_2026/251/Conmputer_Organization/milestone_3/03_Quartus/output_files/") File("pipeline.sof") MfrSpec(OpMask(1));
+		Device PartName(EP2C35F672) Path("D:/HCMUT/Year_2025_2026/251/Conmputer_Organization/milestone_3/03_Quartus/output_files/") File("Kit_Pipeline.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

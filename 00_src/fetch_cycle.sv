@@ -1,10 +1,10 @@
 `ifndef FETCH_CYCLE
 `define FETCH_CYCLE
 
-//`include "pc.sv"
-//`include "add_sub_32_bit.sv"
-//`include "inst_memory.sv"
-//`include "mux2_1.sv"
+`include "pc.sv"
+`include "add_sub_32_bit.sv"
+`include "inst_memory.sv"
+`include "mux2_1.sv"
 
 module fetch_cycle (
     input logic         i_fetch_clk,

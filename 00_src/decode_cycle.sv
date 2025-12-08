@@ -1,9 +1,9 @@
 `ifndef DECODE_CYCLE
 `define DECODE_CYCLE
-//`include "regfile.sv"
-//`include "imm_gen.sv"
-//`include "control_unit_new.sv"
-//`include "mux2_1.sv"
+`include "regfile.sv"
+`include "imm_gen.sv"
+`include "control_unit_new.sv"
+`include "mux2_1.sv"
 module decode_cycle(
     input logic         i_decode_clk,
     input logic         i_decode_reset,

@@ -2,11 +2,11 @@
 `ifndef ALU
 `define ALU
 
-//`include "add_sub_32_bit.sv"
-//`include "shift_right_logical.sv"
-//`include "shift_left_logical.sv"
-//`include "shift_right_arithmetic.sv"
-//`include "slt_sltu.sv"
+`include "add_sub_32_bit.sv"
+`include "shift_right_logical.sv"
+`include "shift_left_logical.sv"
+`include "shift_right_arithmetic.sv"
+`include "slt_sltu.sv"
 
 module alu(
 	//  input

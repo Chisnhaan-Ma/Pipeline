@@ -1,4 +1,4 @@
-//`include "full_adder.sv"
+`include "full_adder.sv"
 `ifndef ADD_SUB_32_BIT
 `define ADD_SUB_32_BIT
 module add_sub_32_bit (

@@ -1,7 +1,7 @@
-//`include "brc.sv"
-//`include "mux3_1.sv"
-//`include "mux2_1.sv"
-//`include "alu.sv"
+`include "brc.sv"
+`include "mux3_1.sv"
+`include "mux2_1.sv"
+`include "alu.sv"
 //chưa add insn valid///////
 module execute_cycle(
     input logic         i_execute_clk,

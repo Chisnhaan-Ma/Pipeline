@@ -7,8 +7,8 @@ module inst_memory (
 
   logic [31:0] imem [0:2048];
   initial begin
-    $readmemh("/home/yellow/ctmt_l01_l02_4/workspace/milestone_3/02_test/isa_4b_ms3.hex",imem);
-    
+    $readmemh("D:/HCMUT/Year_2025_2026/251/Conmputer_Organization/milestone_3/00_src/Test_Inst_Pl.dump",imem);
+    //D:/HCMUT/Year_2025_2026/251/Conmputer_Organization/milestone_3/00_src/Test_Inst_Pl.dump
   end
   always @(*) begin
       o_rdata = imem[i_addr[31:2]];  

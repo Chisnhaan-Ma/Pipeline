@@ -1,13 +1,13 @@
 `ifndef PIPILINE
 `define PIPELINE
-//`include "fetch_cycle.sv"
-//`include "decode_cycle.sv"
-//`include "execute_cycle.sv"
-//`include "memory_cycle.sv"
-//`include "writeback_cycle.sv"
-//`include "branch_taken.sv"
-//`include "forward_2.sv"
-//`include "hazard_load.sv"
+`include "fetch_cycle.sv"
+`include "decode_cycle.sv"
+`include "execute_cycle.sv"
+`include "memory_cycle.sv"
+`include "writeback_cycle.sv"
+`include "branch_taken.sv"
+`include "forward_2.sv"
+`include "hazard_load.sv"
 module pipelined (
     input logic i_clk,
     input logic i_reset,
@@ -308,9 +308,8 @@ logic ctrl_wb;
   
     );
 
-    always_ff @ (negedge i_clk) begin
-        //$display(" INST_WB = %h, PC_DEBUG = %h, load_data = %h, data_writeback = %h, stall = %h",inst_wb, o_pc_debug, ld_data_wb, rd_data_decode, Stall);
-       //$display("INST_WB = %h, PC_DEBUG = %h, O_CTRL = %h, O_INSN_VLD = %h, O_MISPREDICT= %h,, LED_REG = %h, RD_ADDR = %h, WB_DATA = %h, time = %d", inst_wb, o_pc_debug, o_ctrl, o_insn_vld, o_mispred, o_io_ledr,rd_addr_decode, rd_data_decode, $time);
+    always_ff @ (negedge i_clk) begin: JUST_FOR_DEBUG
+       $display("INST_WB = %h, PC_DEBUG = %h, O_CTRL = %h, O_INSN_VLD = %h, O_MISPREDICT= %h,, LED_REG = %h, RD_ADDR = %h, WB_DATA = %h, time = %d", inst_wb, o_pc_debug, o_ctrl, o_insn_vld, o_mispred, o_io_ledr,rd_addr_decode, rd_data_decode, $time);
     end
     
     always_ff @ (posedge i_clk) begin

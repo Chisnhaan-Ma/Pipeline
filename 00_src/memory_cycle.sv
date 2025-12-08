@@ -1,7 +1,7 @@
 `ifndef MEMORY_CYCLE
 `define MEMORY_CYCLE
-////`include "add_sub_32_bit.sv"
-////`include "lsu_new.sv"
+`include "add_sub_32_bit.sv"
+`include "lsu_new.sv"
 module memory_cycle(
     input logic         i_clk,
     input logic         i_reset,
@@ -101,7 +101,7 @@ module memory_cycle(
         .Result(PC_add4_internal)
     );
 
-    lsu_syn lsu_memory(
+    lsu_new lsu_memory(
         .i_clk          (i_clk),
         .i_reset        (i_reset),
 

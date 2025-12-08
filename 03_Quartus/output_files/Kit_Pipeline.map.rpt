@@ -1,0 +1,1229 @@
+Analysis & Synthesis report for Kit_Pipeline
+Sun Dec 07 13:27:37 2025
+Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. State Machine - |Kit_Pipeline|memory_cycle:memory_top|lsu_syn:lsu_memory|mux_3_1_lsu:mux31|addr_sel_tmp
+  9. Registers Removed During Synthesis
+ 10. Removed Registers Triggering Further Register Optimizations
+ 11. General Register Statistics
+ 12. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 13. Port Connectivity Checks: "writeback_cycle:writeback_top"
+ 14. Port Connectivity Checks: "memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory"
+ 15. Port Connectivity Checks: "execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:sltu_alu"
+ 16. Port Connectivity Checks: "execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB"
+ 17. Port Connectivity Checks: "execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu"
+ 18. Port Connectivity Checks: "execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu"
+ 19. Port Connectivity Checks: "execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor"
+ 20. Port Connectivity Checks: "execute_cycle:execute_top"
+ 21. Port Connectivity Checks: "decode_cycle:decoce_top|control_unit_new:control_unit_at_decode"
+ 22. Port Connectivity Checks: "fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch"
+ 23. Elapsed Time Per Partition
+ 24. Analysis & Synthesis Messages
+ 25. Analysis & Synthesis Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++--------------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                         ;
++------------------------------------+-------------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Sun Dec 07 13:27:37 2025           ;
+; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
+; Revision Name                      ; Kit_Pipeline                                    ;
+; Top-level Entity Name              ; Kit_Pipeline                                    ;
+; Family                             ; Cyclone II                                      ;
+; Total logic elements               ; 5,154                                           ;
+;     Total combinational functions  ; 4,992                                           ;
+;     Dedicated logic registers      ; 1,839                                           ;
+; Total registers                    ; 1839                                            ;
+; Total pins                         ; 221                                             ;
+; Total virtual pins                 ; 0                                               ;
+; Total memory bits                  ; 0                                               ;
+; Embedded Multiplier 9-bit elements ; 0                                               ;
+; Total PLLs                         ; 0                                               ;
++------------------------------------+-------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                                        ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                                     ; Setting            ; Default Value      ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                                     ; EP2C35F672C6       ;                    ;
+; Top-level entity name                                                      ; Kit_Pipeline       ; Kit_Pipeline       ;
+; Family name                                                                ; Cyclone II         ; Cyclone IV GX      ;
+; Use smart compilation                                                      ; Off                ; Off                ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                                ; Off                ; Off                ;
+; Restructure Multiplexers                                                   ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                                        ; Off                ; Off                ;
+; Preserve fewer node names                                                  ; On                 ; On                 ;
+; Disable OpenCore Plus hardware evaluation                                  ; Off                ; Off                ;
+; Verilog Version                                                            ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                               ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                                   ; Auto               ; Auto               ;
+; Safe State Machine                                                         ; Off                ; Off                ;
+; Extract Verilog State Machines                                             ; On                 ; On                 ;
+; Extract VHDL State Machines                                                ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                          ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                                 ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                             ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                                    ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                                  ; On                 ; On                 ;
+; Parallel Synthesis                                                         ; On                 ; On                 ;
+; DSP Block Balancing                                                        ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                                         ; On                 ; On                 ;
+; Power-Up Don't Care                                                        ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                               ; Off                ; Off                ;
+; Remove Duplicate Registers                                                 ; On                 ; On                 ;
+; Ignore CARRY Buffers                                                       ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                                     ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                                      ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                                  ; Off                ; Off                ;
+; Ignore LCELL Buffers                                                       ; Off                ; Off                ;
+; Ignore SOFT Buffers                                                        ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                             ; Off                ; Off                ;
+; Optimization Technique                                                     ; Balanced           ; Balanced           ;
+; Carry Chain Length                                                         ; 70                 ; 70                 ;
+; Auto Carry Chains                                                          ; On                 ; On                 ;
+; Auto Open-Drain Pins                                                       ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                                      ; Off                ; Off                ;
+; Auto ROM Replacement                                                       ; On                 ; On                 ;
+; Auto RAM Replacement                                                       ; On                 ; On                 ;
+; Auto Shift Register Replacement                                            ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                            ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                              ; On                 ; On                 ;
+; Strict RAM Replacement                                                     ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                          ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                                     ; Off                ; Off                ;
+; Auto RAM to Logic Cell Conversion                                          ; Off                ; Off                ;
+; Auto Resource Sharing                                                      ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                                         ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                              ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing                        ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                          ; Off                ; Off                ;
+; Timing-Driven Synthesis                                                    ; Off                ; Off                ;
+; Report Parameter Settings                                                  ; On                 ; On                 ;
+; Report Source Assignments                                                  ; On                 ; On                 ;
+; Report Connectivity Checks                                                 ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                                         ; Off                ; Off                ;
+; Synchronization Register Chain Length                                      ; 2                  ; 2                  ;
+; PowerPlay Power Optimization                                               ; Normal compilation ; Normal compilation ;
+; HDL message level                                                          ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                            ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report                   ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report                         ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report                  ; 100                ; 100                ;
+; Clock MUX Protection                                                       ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                                ; Off                ; Off                ;
+; Block Design Naming                                                        ; Auto               ; Auto               ;
+; SDC constraint protection                                                  ; Off                ; Off                ;
+; Synthesis Effort                                                           ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal               ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                                       ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                                         ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                                ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                                     ; On                 ; On                 ;
+; Synthesis Seed                                                             ; 1                  ; 1                  ;
++----------------------------------------------------------------------------+--------------------+--------------------+
+
+
+Parallel compilation was disabled, but you have multiple processors available. Enable parallel compilation to reduce compilation time.
++-------------------------------------+
+; Parallel Compilation                ;
++----------------------------+--------+
+; Processors                 ; Number ;
++----------------------------+--------+
+; Number detected on machine ; 8      ;
+; Maximum allowed            ; 1      ;
++----------------------------+--------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                                                   ;
++-----------------------------------------------------------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path                                                  ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                              ; Library ;
++-----------------------------------------------------------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------------------+---------+
+; Kit_Pipeline.sv                                                                   ; yes             ; User SystemVerilog HDL File  ; D:/HCMUT/Year_2025_2026/251/Conmputer_Organization/milestone_3/03_Quartus/Kit_Pipeline.sv ;         ;
+; /hcmut/year_2025_2026/251/conmputer_organization/milestone_2/02_mem_dump/lcd.dump ; yes             ; Auto-Found Unspecified File  ; /hcmut/year_2025_2026/251/conmputer_organization/milestone_2/02_mem_dump/lcd.dump         ;         ;
++-----------------------------------------------------------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------------------+---------+
+
+
++-----------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary         ;
++---------------------------------------------+-------+
+; Resource                                    ; Usage ;
++---------------------------------------------+-------+
+; Estimated Total logic elements              ; 5,154 ;
+;                                             ;       ;
+; Total combinational functions               ; 4992  ;
+; Logic element usage by number of LUT inputs ;       ;
+;     -- 4 input functions                    ; 3830  ;
+;     -- 3 input functions                    ; 891   ;
+;     -- <=2 input functions                  ; 271   ;
+;                                             ;       ;
+; Logic elements by mode                      ;       ;
+;     -- normal mode                          ; 4992  ;
+;     -- arithmetic mode                      ; 0     ;
+;                                             ;       ;
+; Total registers                             ; 1839  ;
+;     -- Dedicated logic registers            ; 1839  ;
+;     -- I/O registers                        ; 0     ;
+;                                             ;       ;
+; I/O pins                                    ; 221   ;
+; Embedded Multiplier 9-bit elements          ; 0     ;
+; Maximum fan-out node                        ; i_clk ;
+; Maximum fan-out                             ; 1839  ;
+; Total fan-out                               ; 24569 ;
+; Average fan-out                             ; 3.48  ;
++---------------------------------------------+-------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                    ;
++-------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------------------------------------------------------------------+--------------+
+; Compilation Hierarchy Node                      ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                       ; Library Name ;
++-------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------------------------------------------------------------------+--------------+
+; |Kit_Pipeline                                   ; 4992 (34)         ; 1839 (1)     ; 0           ; 0            ; 0       ; 0         ; 221  ; 0            ; |Kit_Pipeline                                                                                                             ; work         ;
+;    |branch_taken:branch_taken_top|              ; 6 (6)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|branch_taken:branch_taken_top                                                                               ; work         ;
+;    |decode_cycle:decoce_top|                    ; 2544 (1466)       ; 1160 (168)   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|decode_cycle:decoce_top                                                                                     ; work         ;
+;       |control_unit_new:control_unit_at_decode| ; 25 (25)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|decode_cycle:decoce_top|control_unit_new:control_unit_at_decode                                             ; work         ;
+;       |imm_gen:imm_gen_at_decode|               ; 5 (5)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|decode_cycle:decoce_top|imm_gen:imm_gen_at_decode                                                           ; work         ;
+;       |regfile:regfile_at_decode|               ; 1048 (1048)       ; 992 (992)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode                                                           ; work         ;
+;    |execute_cycle:execute_top|                  ; 1024 (317)        ; 121 (121)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top                                                                                   ; work         ;
+;       |alu:alu_at_execute|                      ; 431 (108)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute                                                                ; work         ;
+;          |add_sub_32_bit:add_sub_alu|           ; 50 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu                                     ; work         ;
+;             |full_adder:FA0|                    ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:FA0                      ; work         ;
+;             |full_adder:adder_32[10].FA|        ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[10].FA          ; work         ;
+;             |full_adder:adder_32[11].FA|        ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[11].FA          ; work         ;
+;             |full_adder:adder_32[12].FA|        ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[12].FA          ; work         ;
+;             |full_adder:adder_32[13].FA|        ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[13].FA          ; work         ;
+;             |full_adder:adder_32[14].FA|        ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[14].FA          ; work         ;
+;             |full_adder:adder_32[15].FA|        ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[15].FA          ; work         ;
+;             |full_adder:adder_32[16].FA|        ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[16].FA          ; work         ;
+;             |full_adder:adder_32[17].FA|        ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[17].FA          ; work         ;
+;             |full_adder:adder_32[18].FA|        ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[18].FA          ; work         ;
+;             |full_adder:adder_32[19].FA|        ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[19].FA          ; work         ;
+;             |full_adder:adder_32[1].FA|         ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[1].FA           ; work         ;
+;             |full_adder:adder_32[20].FA|        ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[20].FA          ; work         ;
+;             |full_adder:adder_32[21].FA|        ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[21].FA          ; work         ;
+;             |full_adder:adder_32[22].FA|        ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[22].FA          ; work         ;
+;             |full_adder:adder_32[23].FA|        ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[23].FA          ; work         ;
+;             |full_adder:adder_32[24].FA|        ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[24].FA          ; work         ;
+;             |full_adder:adder_32[25].FA|        ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[25].FA          ; work         ;
+;             |full_adder:adder_32[26].FA|        ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[26].FA          ; work         ;
+;             |full_adder:adder_32[27].FA|        ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[27].FA          ; work         ;
+;             |full_adder:adder_32[28].FA|        ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[28].FA          ; work         ;
+;             |full_adder:adder_32[29].FA|        ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[29].FA          ; work         ;
+;             |full_adder:adder_32[2].FA|         ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[2].FA           ; work         ;
+;             |full_adder:adder_32[30].FA|        ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[30].FA          ; work         ;
+;             |full_adder:adder_32[3].FA|         ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[3].FA           ; work         ;
+;             |full_adder:adder_32[4].FA|         ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[4].FA           ; work         ;
+;             |full_adder:adder_32[5].FA|         ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[5].FA           ; work         ;
+;             |full_adder:adder_32[6].FA|         ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[6].FA           ; work         ;
+;             |full_adder:adder_32[7].FA|         ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[7].FA           ; work         ;
+;             |full_adder:adder_32[8].FA|         ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[8].FA           ; work         ;
+;             |full_adder:adder_32[9].FA|         ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu|full_adder:adder_32[9].FA           ; work         ;
+;          |shift_left_logical:sll_alu|           ; 110 (110)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|shift_left_logical:sll_alu                                     ; work         ;
+;          |shift_right_arithmetic:sra_alu|       ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|shift_right_arithmetic:sra_alu                                 ; work         ;
+;          |shift_right_logical:srl_alu|          ; 118 (118)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|shift_right_logical:srl_alu                                    ; work         ;
+;          |slt_sltu:slt_alu|                     ; 42 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu                                               ; work         ;
+;             |add_sub_32_bit:SUB|                ; 42 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB                            ; work         ;
+;                |full_adder:adder_32[10].FA|     ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB|full_adder:adder_32[10].FA ; work         ;
+;                |full_adder:adder_32[12].FA|     ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB|full_adder:adder_32[12].FA ; work         ;
+;                |full_adder:adder_32[13].FA|     ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB|full_adder:adder_32[13].FA ; work         ;
+;                |full_adder:adder_32[14].FA|     ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB|full_adder:adder_32[14].FA ; work         ;
+;                |full_adder:adder_32[15].FA|     ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB|full_adder:adder_32[15].FA ; work         ;
+;                |full_adder:adder_32[20].FA|     ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB|full_adder:adder_32[20].FA ; work         ;
+;                |full_adder:adder_32[27].FA|     ; 6 (6)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB|full_adder:adder_32[27].FA ; work         ;
+;                |full_adder:adder_32[2].FA|      ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB|full_adder:adder_32[2].FA  ; work         ;
+;                |full_adder:adder_32[30].FA|     ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB|full_adder:adder_32[30].FA ; work         ;
+;                |full_adder:adder_32[3].FA|      ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB|full_adder:adder_32[3].FA  ; work         ;
+;                |full_adder:adder_32[4].FA|      ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB|full_adder:adder_32[4].FA  ; work         ;
+;                |full_adder:adder_32[5].FA|      ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB|full_adder:adder_32[5].FA  ; work         ;
+;                |full_adder:adder_32[6].FA|      ; 6 (6)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB|full_adder:adder_32[6].FA  ; work         ;
+;                |full_adder:adder_32[7].FA|      ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB|full_adder:adder_32[7].FA  ; work         ;
+;                |full_adder:adder_32[8].FA|      ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB|full_adder:adder_32[8].FA  ; work         ;
+;                |full_adder:adder_32[9].FA|      ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB|full_adder:adder_32[9].FA  ; work         ;
+;       |brc:brc_at_execute|                      ; 46 (1)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute                                                                ; work         ;
+;          |add_sub_32_bit:subtractor|            ; 45 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor                                      ; work         ;
+;             |full_adder:adder_32[11].FA|        ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[11].FA           ; work         ;
+;             |full_adder:adder_32[12].FA|        ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[12].FA           ; work         ;
+;             |full_adder:adder_32[14].FA|        ; 4 (4)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[14].FA           ; work         ;
+;             |full_adder:adder_32[15].FA|        ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[15].FA           ; work         ;
+;             |full_adder:adder_32[17].FA|        ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[17].FA           ; work         ;
+;             |full_adder:adder_32[18].FA|        ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[18].FA           ; work         ;
+;             |full_adder:adder_32[1].FA|         ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[1].FA            ; work         ;
+;             |full_adder:adder_32[20].FA|        ; 4 (4)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[20].FA           ; work         ;
+;             |full_adder:adder_32[21].FA|        ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[21].FA           ; work         ;
+;             |full_adder:adder_32[23].FA|        ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[23].FA           ; work         ;
+;             |full_adder:adder_32[24].FA|        ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[24].FA           ; work         ;
+;             |full_adder:adder_32[25].FA|        ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[25].FA           ; work         ;
+;             |full_adder:adder_32[26].FA|        ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[26].FA           ; work         ;
+;             |full_adder:adder_32[27].FA|        ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[27].FA           ; work         ;
+;             |full_adder:adder_32[29].FA|        ; 3 (3)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[29].FA           ; work         ;
+;             |full_adder:adder_32[2].FA|         ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[2].FA            ; work         ;
+;             |full_adder:adder_32[30].FA|        ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[30].FA           ; work         ;
+;             |full_adder:adder_32[3].FA|         ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[3].FA            ; work         ;
+;             |full_adder:adder_32[4].FA|         ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[4].FA            ; work         ;
+;             |full_adder:adder_32[5].FA|         ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[5].FA            ; work         ;
+;             |full_adder:adder_32[6].FA|         ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[6].FA            ; work         ;
+;             |full_adder:adder_32[7].FA|         ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[7].FA            ; work         ;
+;             |full_adder:adder_32[8].FA|         ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[8].FA            ; work         ;
+;             |full_adder:adder_32[9].FA|         ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor|full_adder:adder_32[9].FA            ; work         ;
+;       |mux_2_1:mux_asel|                        ; 48 (48)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|mux_2_1:mux_asel                                                                  ; work         ;
+;       |mux_2_1:mux_bsel|                        ; 42 (42)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|mux_2_1:mux_bsel                                                                  ; work         ;
+;       |mux_3_1:mux_forward_operand_a|           ; 69 (69)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|mux_3_1:mux_forward_operand_a                                                     ; work         ;
+;       |mux_3_1:mux_forward_operand_b|           ; 71 (71)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|execute_cycle:execute_top|mux_3_1:mux_forward_operand_b                                                     ; work         ;
+;    |fetch_cycle:fetch_top|                      ; 489 (79)          ; 96 (64)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top                                                                                       ; work         ;
+;       |add_sub_32_bit:pc_add4_at_fetch|         ; 37 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch                                                       ; work         ;
+;          |full_adder:adder_32[10].FA|           ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[10].FA                            ; work         ;
+;          |full_adder:adder_32[11].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[11].FA                            ; work         ;
+;          |full_adder:adder_32[12].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[12].FA                            ; work         ;
+;          |full_adder:adder_32[13].FA|           ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[13].FA                            ; work         ;
+;          |full_adder:adder_32[14].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[14].FA                            ; work         ;
+;          |full_adder:adder_32[15].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[15].FA                            ; work         ;
+;          |full_adder:adder_32[16].FA|           ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[16].FA                            ; work         ;
+;          |full_adder:adder_32[17].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[17].FA                            ; work         ;
+;          |full_adder:adder_32[18].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[18].FA                            ; work         ;
+;          |full_adder:adder_32[19].FA|           ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[19].FA                            ; work         ;
+;          |full_adder:adder_32[20].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[20].FA                            ; work         ;
+;          |full_adder:adder_32[21].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[21].FA                            ; work         ;
+;          |full_adder:adder_32[22].FA|           ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[22].FA                            ; work         ;
+;          |full_adder:adder_32[23].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[23].FA                            ; work         ;
+;          |full_adder:adder_32[24].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[24].FA                            ; work         ;
+;          |full_adder:adder_32[25].FA|           ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[25].FA                            ; work         ;
+;          |full_adder:adder_32[26].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[26].FA                            ; work         ;
+;          |full_adder:adder_32[27].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[27].FA                            ; work         ;
+;          |full_adder:adder_32[28].FA|           ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[28].FA                            ; work         ;
+;          |full_adder:adder_32[29].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[29].FA                            ; work         ;
+;          |full_adder:adder_32[30].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[30].FA                            ; work         ;
+;          |full_adder:adder_32[31].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[31].FA                            ; work         ;
+;          |full_adder:adder_32[3].FA|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[3].FA                             ; work         ;
+;          |full_adder:adder_32[4].FA|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[4].FA                             ; work         ;
+;          |full_adder:adder_32[5].FA|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[5].FA                             ; work         ;
+;          |full_adder:adder_32[6].FA|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[6].FA                             ; work         ;
+;          |full_adder:adder_32[7].FA|            ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[7].FA                             ; work         ;
+;          |full_adder:adder_32[8].FA|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[8].FA                             ; work         ;
+;          |full_adder:adder_32[9].FA|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:adder_32[9].FA                             ; work         ;
+;       |inst_memory:inst_memory_at_fetch|        ; 371 (371)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|inst_memory:inst_memory_at_fetch                                                      ; work         ;
+;       |pc:pc_at_fetch|                          ; 2 (2)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|fetch_cycle:fetch_top|pc:pc_at_fetch                                                                        ; work         ;
+;    |forward:forward_top|                        ; 23 (23)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|forward:forward_top                                                                                         ; work         ;
+;    |hazard_detection:hazard_load_top|           ; 10 (10)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|hazard_detection:hazard_load_top                                                                            ; work         ;
+;    |memory_cycle:memory_top|                    ; 746 (75)          ; 461 (104)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top                                                                                     ; work         ;
+;       |add_sub_32_bit:PC_add4_at_memory|        ; 38 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory                                                    ; work         ;
+;          |full_adder:adder_32[10].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[10].FA                         ; work         ;
+;          |full_adder:adder_32[11].FA|           ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[11].FA                         ; work         ;
+;          |full_adder:adder_32[12].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[12].FA                         ; work         ;
+;          |full_adder:adder_32[13].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[13].FA                         ; work         ;
+;          |full_adder:adder_32[14].FA|           ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[14].FA                         ; work         ;
+;          |full_adder:adder_32[15].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[15].FA                         ; work         ;
+;          |full_adder:adder_32[16].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[16].FA                         ; work         ;
+;          |full_adder:adder_32[17].FA|           ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[17].FA                         ; work         ;
+;          |full_adder:adder_32[18].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[18].FA                         ; work         ;
+;          |full_adder:adder_32[19].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[19].FA                         ; work         ;
+;          |full_adder:adder_32[20].FA|           ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[20].FA                         ; work         ;
+;          |full_adder:adder_32[21].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[21].FA                         ; work         ;
+;          |full_adder:adder_32[22].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[22].FA                         ; work         ;
+;          |full_adder:adder_32[23].FA|           ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[23].FA                         ; work         ;
+;          |full_adder:adder_32[24].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[24].FA                         ; work         ;
+;          |full_adder:adder_32[25].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[25].FA                         ; work         ;
+;          |full_adder:adder_32[26].FA|           ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[26].FA                         ; work         ;
+;          |full_adder:adder_32[27].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[27].FA                         ; work         ;
+;          |full_adder:adder_32[28].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[28].FA                         ; work         ;
+;          |full_adder:adder_32[29].FA|           ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[29].FA                         ; work         ;
+;          |full_adder:adder_32[30].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[30].FA                         ; work         ;
+;          |full_adder:adder_32[31].FA|           ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[31].FA                         ; work         ;
+;          |full_adder:adder_32[3].FA|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[3].FA                          ; work         ;
+;          |full_adder:adder_32[4].FA|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[4].FA                          ; work         ;
+;          |full_adder:adder_32[5].FA|            ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[5].FA                          ; work         ;
+;          |full_adder:adder_32[6].FA|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[6].FA                          ; work         ;
+;          |full_adder:adder_32[7].FA|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[7].FA                          ; work         ;
+;          |full_adder:adder_32[8].FA|            ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[8].FA                          ; work         ;
+;          |full_adder:adder_32[9].FA|            ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory|full_adder:adder_32[9].FA                          ; work         ;
+;       |lsu_syn:lsu_memory|                      ; 633 (32)          ; 357 (64)     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|lsu_syn:lsu_memory                                                                  ; work         ;
+;          |datamem_syn:mem|                      ; 271 (269)         ; 130 (130)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem                                                  ; work         ;
+;             |mask_st_create:mask_st|            ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|mask_st_create:mask_st                           ; work         ;
+;          |demux_sel_mem:demux_1|                ; 1 (1)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|lsu_syn:lsu_memory|demux_sel_mem:demux_1                                            ; work         ;
+;          |mux_3_1_lsu:mux31|                    ; 7 (7)             ; 3 (3)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|lsu_syn:lsu_memory|mux_3_1_lsu:mux31                                                ; work         ;
+;          |output_buffer:outputperiph|           ; 322 (116)         ; 160 (160)    ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|lsu_syn:lsu_memory|output_buffer:outputperiph                                       ; work         ;
+;             |data_trsf:trsf_st|                 ; 206 (206)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|memory_cycle:memory_top|lsu_syn:lsu_memory|output_buffer:outputperiph|data_trsf:trsf_st                     ; work         ;
+;    |writeback_cycle:writeback_top|              ; 116 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|writeback_cycle:writeback_top                                                                               ; work         ;
+;       |mux_3_1:mux_3_1_at_writeback|            ; 116 (116)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |Kit_Pipeline|writeback_cycle:writeback_top|mux_3_1:mux_3_1_at_writeback                                                  ; work         ;
++-------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------------------------------------------------------------------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
+Encoding Type:  One-Hot
++---------------------------------------------------------------------------------------------------------+
+; State Machine - |Kit_Pipeline|memory_cycle:memory_top|lsu_syn:lsu_memory|mux_3_1_lsu:mux31|addr_sel_tmp ;
++-----------------+-----------------+-----------------+-----------------+---------------------------------+
+; Name            ; addr_sel_tmp.11 ; addr_sel_tmp.10 ; addr_sel_tmp.01 ; addr_sel_tmp.00                 ;
++-----------------+-----------------+-----------------+-----------------+---------------------------------+
+; addr_sel_tmp.00 ; 0               ; 0               ; 0               ; 0                               ;
+; addr_sel_tmp.01 ; 0               ; 0               ; 1               ; 1                               ;
+; addr_sel_tmp.10 ; 0               ; 1               ; 0               ; 1                               ;
+; addr_sel_tmp.11 ; 1               ; 0               ; 0               ; 1                               ;
++-----------------+-----------------+-----------------+-----------------+---------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                                                                                      ;
++------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+
+; Register name                                                                ; Reason for Removal                                                                       ;
++------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[128][24] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[128][16] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[128][8]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[127][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[127][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[126][16] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[126][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[114][16] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[114][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[101][16] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[101][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[101][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[101][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[100][16] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[100][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[74][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[74][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[73][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[73][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[72][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[72][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[63][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[63][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[22][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[22][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[22][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[22][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[21][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[21][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[21][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[21][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[18][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[18][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[17][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[17][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[119][16] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[119][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[112][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[112][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[111][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[111][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[110][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[110][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[109][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[109][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[108][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[108][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[107][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[107][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[106][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[106][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[105][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[105][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[104][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[104][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[103][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[103][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[102][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[102][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[100][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[100][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[95][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[95][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[71][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[71][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[70][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[70][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[69][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[69][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[68][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[68][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[67][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[67][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[66][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[66][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[65][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[65][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[64][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[64][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[20][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[20][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[19][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[19][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[19][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[19][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[18][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[18][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[15][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[15][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[14][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[14][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[120][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[120][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[118][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[118][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[117][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[117][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[116][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[116][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[115][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[115][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[114][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[114][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[113][16] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[113][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[112][16] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[112][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[99][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[99][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[98][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[98][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[97][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[97][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[69][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[69][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[14][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[14][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[13][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[13][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[13][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[13][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[12][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[12][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[9][16]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[9][24]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[124][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[124][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[121][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[121][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[94][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[94][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[94][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[94][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[92][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[92][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[91][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[91][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[90][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[90][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[89][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[89][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[88][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[88][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[87][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[87][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[86][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[86][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[85][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[85][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[84][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[84][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[83][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[83][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[82][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[82][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[81][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[81][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[80][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[80][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[79][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[79][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[78][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[78][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[77][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[77][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[76][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[76][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[75][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[75][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[60][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[60][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[11][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[11][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[11][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[11][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[10][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[10][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[10][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[10][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[8][8]    ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[8][24]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[7][8]    ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[7][16]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[6][8]    ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[6][16]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[5][16]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[5][24]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[4][8]    ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[4][24]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[3][8]    ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[3][24]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[2][8]    ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[2][24]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[1][8]    ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[1][24]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[0][8]    ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[0][24]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[127][16] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[127][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[59][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[59][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[58][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[58][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[57][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[57][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[56][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[56][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[55][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[55][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[54][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[54][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[53][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[53][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[52][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[52][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[51][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[51][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[50][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[50][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[49][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[49][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[48][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[48][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[47][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[47][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[46][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[46][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[45][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[45][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[44][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[44][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[43][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[43][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[42][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[42][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[41][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[41][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[40][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[40][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[39][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[39][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[38][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[38][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[37][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[37][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[36][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[36][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[35][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[35][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[34][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[34][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[33][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[33][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[32][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[32][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[31][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[31][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[30][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[30][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[29][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[29][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[28][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[28][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[27][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[27][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[26][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[26][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[25][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[25][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[24][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[24][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[23][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[23][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[16][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[16][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[5][8]    ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[5][24]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[4][16]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[4][24]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[0][16]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[0][24]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[125][16] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[125][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[96][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[96][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[95][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[95][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[93][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[93][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[61][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[61][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[111][16] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[111][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[92][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[92][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[125][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[125][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[93][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[93][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[62][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[62][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[60][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[60][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[123][16] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[123][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[110][16] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[110][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[123][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[123][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[120][16] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[120][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[58][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[58][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[109][16] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[109][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[55][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[55][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[91][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[91][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[63][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[63][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[90][16]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[90][24]  ;
+; memory_cycle:memory_top|pc_debug_reg[1]                                      ; Merged with memory_cycle:memory_top|pc_add4_reg[1]                                       ;
+; memory_cycle:memory_top|pc_debug_reg[0]                                      ; Merged with memory_cycle:memory_top|pc_add4_reg[0]                                       ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[126][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[126][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[124][24] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[124][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[122][24] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[122][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[122][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[122][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[121][24] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[121][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[119][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[119][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[118][24] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[118][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[117][24] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[117][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[116][24] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[116][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[115][24] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[115][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[113][8]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[113][24] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[108][24] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[108][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[107][24] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[107][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[106][24] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[106][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[105][24] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[105][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[104][24] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[104][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[103][24] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[103][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[102][24] ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[102][16] ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[99][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[99][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[98][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[98][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[97][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[97][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[96][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[96][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[89][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[89][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[88][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[88][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[87][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[87][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[86][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[86][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[85][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[85][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[84][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[84][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[83][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[83][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[82][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[82][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[81][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[81][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[80][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[80][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[79][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[79][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[78][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[78][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[77][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[77][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[76][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[76][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[75][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[75][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[74][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[74][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[73][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[73][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[72][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[72][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[71][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[71][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[70][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[70][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[68][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[68][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[67][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[67][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[66][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[66][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[65][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[65][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[64][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[64][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[62][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[62][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[61][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[61][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[59][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[59][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[57][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[57][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[56][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[56][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[54][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[54][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[53][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[53][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[52][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[52][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[51][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[51][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[50][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[50][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[49][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[49][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[48][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[48][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[47][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[47][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[46][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[46][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[45][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[45][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[44][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[44][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[43][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[43][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[42][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[42][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[41][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[41][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[40][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[40][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[39][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[39][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[38][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[38][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[37][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[37][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[36][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[36][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[35][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[35][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[34][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[34][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[33][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[33][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[32][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[32][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[31][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[31][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[30][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[30][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[29][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[29][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[28][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[28][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[27][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[27][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[26][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[26][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[25][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[25][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[24][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[24][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[23][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[23][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[20][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[20][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[17][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[17][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[16][24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[16][16]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[15][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[15][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[12][8]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[12][24]  ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[9][8]    ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[9][24]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[8][24]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[8][16]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[7][24]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[7][16]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[6][24]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[6][16]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[3][24]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[3][16]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[2][24]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[2][16]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[1][24]   ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[1][16]   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_ld_bf[8,24]  ; Merged with memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_ld_bf[16]    ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[127][24] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[126][24] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[125][24] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[124][16] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[123][24] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[122][16] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[121][16] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[120][24] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[119][24] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[118][16] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[117][16] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[116][16] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[115][16] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[114][24] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[113][24] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[112][24] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[111][24] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[110][24] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[109][24] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[108][16] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[107][16] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[106][16] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[105][16] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[104][16] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[103][16] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[102][16] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[101][24] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[100][24] ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[99][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[98][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[97][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[96][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[95][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[94][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[93][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[92][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[91][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[90][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[89][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[88][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[87][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[86][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[85][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[84][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[83][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[82][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[81][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[80][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[79][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[78][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[77][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[76][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[75][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[74][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[73][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[72][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[71][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[70][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[69][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[68][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[67][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[66][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[65][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[64][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[63][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[62][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[61][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[60][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[59][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[58][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[57][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[56][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[55][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[54][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[53][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[52][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[51][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[50][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[49][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[48][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[47][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[46][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[45][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[44][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[43][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[42][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[41][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[40][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[39][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[38][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[37][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[36][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[35][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[34][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[33][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[32][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[31][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[30][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[29][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[28][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[27][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[26][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[25][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[24][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[23][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[22][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[21][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[20][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[19][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[18][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[17][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[16][16]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[15][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[14][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[13][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[12][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[11][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[10][24]  ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[9][24]   ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[8][16]   ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[7][16]   ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[6][16]   ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[5][24]   ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[4][24]   ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[3][16]   ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[2][16]   ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[1][16]   ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[0][24]   ; Stuck at GND due to stuck port data_in                                                   ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_ld_bf[16]    ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][3]                  ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][4]                  ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][16]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][15]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][14]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][13]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][12]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][11]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][10]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][9]                  ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][8]                  ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][7]                  ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][6]                  ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][5]                  ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][2]                  ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][1]                  ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][0]                  ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][17]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][18]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][19]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][20]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][21]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][22]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][23]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][24]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][25]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][26]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][27]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][28]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][29]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][30]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][31]                 ; Stuck at GND due to stuck port data_in                                                   ;
+; fetch_cycle:fetch_top|inst_reg[1]                                            ; Merged with fetch_cycle:fetch_top|inst_reg[0]                                            ;
+; decode_cycle:decoce_top|inst_reg[1]                                          ; Merged with decode_cycle:decoce_top|inst_reg[0]                                          ;
+; execute_cycle:execute_top|inst_reg[1]                                        ; Merged with execute_cycle:execute_top|inst_reg[0]                                        ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|mux_3_1_lsu:mux31|addr_sel_tmp~2  ; Lost fanout                                                                              ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|mux_3_1_lsu:mux31|addr_sel_tmp~3  ; Lost fanout                                                                              ;
+; memory_cycle:memory_top|lsu_syn:lsu_memory|mux_3_1_lsu:mux31|addr_sel_tmp.11 ; Lost fanout                                                                              ;
+; Total Number of Removed Registers = 430                                      ;                                                                                          ;
++------------------------------------------------------------------------------+------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Removed Registers Triggering Further Register Optimizations                                                                                                                           ;
++------------------------------------------------------------------------------+---------------------------+----------------------------------------------------------------------------+
+; Register name                                                                ; Reason for Removal        ; Registers Removed due to This Register                                     ;
++------------------------------------------------------------------------------+---------------------------+----------------------------------------------------------------------------+
+; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_mem[128][16] ; Stuck at GND              ; memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|data_ld_bf[16], ;
+;                                                                              ; due to stuck port data_in ; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][16],              ;
+;                                                                              ;                           ; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][8],               ;
+;                                                                              ;                           ; decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][24]               ;
++------------------------------------------------------------------------------+---------------------------+----------------------------------------------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 1839  ;
+; Number of registers using Synchronous Clear  ; 276   ;
+; Number of registers using Synchronous Load   ; 109   ;
+; Number of registers using Asynchronous Clear ; 160   ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 1518  ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                                                                  ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                                                        ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------------------------------+
+; 3:1                ; 56 bits   ; 112 LEs       ; 56 LEs               ; 56 LEs                 ; Yes        ; |Kit_Pipeline|execute_cycle:execute_top|rs2_data_reg[26]                                                          ;
+; 3:1                ; 22 bits   ; 44 LEs        ; 22 LEs               ; 22 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|inst_reg[22]                                                                ;
+; 3:1                ; 36 bits   ; 72 LEs        ; 36 LEs               ; 36 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|pc_reg[2]                                                                   ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[31][5]                                        ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[30][31]                                       ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[29][7]                                        ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[28][26]                                       ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[27][25]                                       ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[26][12]                                       ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[25][0]                                        ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[24][1]                                        ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[23][12]                                       ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[22][24]                                       ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[21][29]                                       ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[20][30]                                       ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[19][31]                                       ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[18][31]                                       ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[17][8]                                        ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[16][19]                                       ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[15][1]                                        ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[14][4]                                        ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[13][4]                                        ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[12][23]                                       ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[11][25]                                       ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[10][23]                                       ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[9][11]                                        ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[8][1]                                         ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[7][4]                                         ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[6][16]                                        ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[5][7]                                         ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[4][31]                                        ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[3][6]                                         ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[2][30]                                        ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[1][16]                                        ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|regfile:regfile_at_decode|Reg[0][4]                                         ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; Yes        ; |Kit_Pipeline|fetch_cycle:fetch_top|pc:pc_at_fetch|o_pc_data_out[0]                                               ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|inst_reg[4]                                                                 ;
+; 4:1                ; 36 bits   ; 72 LEs        ; 72 LEs               ; 0 LEs                  ; Yes        ; |Kit_Pipeline|fetch_cycle:fetch_top|inst_reg[26]                                                                  ;
+; 4:1                ; 30 bits   ; 60 LEs        ; 60 LEs               ; 0 LEs                  ; Yes        ; |Kit_Pipeline|fetch_cycle:fetch_top|pc:pc_at_fetch|o_pc_data_out[31]                                              ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |Kit_Pipeline|fetch_cycle:fetch_top|pc_reg[28]                                                                    ;
+; 5:1                ; 6 bits    ; 18 LEs        ; 6 LEs                ; 12 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|imm_out_reg[5]                                                              ;
+; 5:1                ; 11 bits   ; 33 LEs        ; 22 LEs               ; 11 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|imm_out_reg[24]                                                             ;
+; 8:1                ; 8 bits    ; 40 LEs        ; 16 LEs               ; 24 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|imm_out_reg[18]                                                             ;
+; 9:1                ; 4 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|imm_out_reg[2]                                                              ;
+; 16:1               ; 5 bits    ; 50 LEs        ; 35 LEs               ; 15 LEs                 ; Yes        ; |Kit_Pipeline|execute_cycle:execute_top|alu_data_reg[9]                                                           ;
+; 17:1               ; 7 bits    ; 77 LEs        ; 56 LEs               ; 21 LEs                 ; Yes        ; |Kit_Pipeline|execute_cycle:execute_top|alu_data_reg[17]                                                          ;
+; 37:1               ; 32 bits   ; 768 LEs       ; 704 LEs              ; 64 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|data_1_reg[20]                                                              ;
+; 37:1               ; 32 bits   ; 768 LEs       ; 704 LEs              ; 64 LEs                 ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|data_2_reg[1]                                                               ;
+; 131:1              ; 3 bits    ; 261 LEs       ; 21 LEs               ; 240 LEs                ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|alu_op_reg[0]                                                               ;
+; 17:1               ; 4 bits    ; 44 LEs        ; 32 LEs               ; 12 LEs                 ; Yes        ; |Kit_Pipeline|execute_cycle:execute_top|alu_data_reg[4]                                                           ;
+; 18:1               ; 3 bits    ; 36 LEs        ; 27 LEs               ; 9 LEs                  ; Yes        ; |Kit_Pipeline|execute_cycle:execute_top|alu_data_reg[27]                                                          ;
+; 18:1               ; 2 bits    ; 24 LEs        ; 20 LEs               ; 4 LEs                  ; Yes        ; |Kit_Pipeline|execute_cycle:execute_top|alu_data_reg[3]                                                           ;
+; 19:1               ; 2 bits    ; 24 LEs        ; 18 LEs               ; 6 LEs                  ; Yes        ; |Kit_Pipeline|execute_cycle:execute_top|alu_data_reg[28]                                                          ;
+; 138:1              ; 2 bits    ; 184 LEs       ; 20 LEs               ; 164 LEs                ; Yes        ; |Kit_Pipeline|decode_cycle:decoce_top|slt_sl_reg[0]                                                               ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |Kit_Pipeline|memory_cycle:memory_top|lsu_syn:lsu_memory|output_buffer:outputperiph|data_trsf:trsf_st|Mux54       ;
+; 4:1                ; 31 bits   ; 62 LEs        ; 62 LEs               ; 0 LEs                  ; No         ; |Kit_Pipeline|writeback_cycle:writeback_top|mux_3_1:mux_3_1_at_writeback|Mux14                                    ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |Kit_Pipeline|execute_cycle:execute_top|mux_3_1:mux_forward_operand_a|Mux21                                       ;
+; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |Kit_Pipeline|execute_cycle:execute_top|mux_3_1:mux_forward_operand_b|Mux27                                       ;
+; 5:1                ; 3 bits    ; 9 LEs         ; 6 LEs                ; 3 LEs                  ; No         ; |Kit_Pipeline|memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|mask_st_create:mask_st|Mux0              ;
+; 16:1               ; 25 bits   ; 250 LEs       ; 100 LEs              ; 150 LEs                ; No         ; |Kit_Pipeline|memory_cycle:memory_top|lsu_syn:lsu_memory|output_buffer:outputperiph|Mux23                         ;
+; 16:1               ; 8 bits    ; 80 LEs        ; 32 LEs               ; 48 LEs                 ; No         ; |Kit_Pipeline|memory_cycle:memory_top|lsu_syn:lsu_memory|output_buffer:outputperiph|data_trsf:trsf_st|data_af[24] ;
+; 16:1               ; 7 bits    ; 70 LEs        ; 28 LEs               ; 42 LEs                 ; No         ; |Kit_Pipeline|memory_cycle:memory_top|lsu_syn:lsu_memory|output_buffer:outputperiph|data_trsf:trsf_st|data_af[8]  ;
+; 17:1               ; 8 bits    ; 88 LEs        ; 32 LEs               ; 56 LEs                 ; No         ; |Kit_Pipeline|memory_cycle:memory_top|lsu_syn:lsu_memory|output_buffer:outputperiph|data_trsf:trsf_st|data_af[22] ;
+; 31:1               ; 7 bits    ; 140 LEs       ; 56 LEs               ; 84 LEs                 ; No         ; |Kit_Pipeline|memory_cycle:memory_top|lsu_syn:lsu_memory|output_buffer:outputperiph|data_trsf:trsf_st|data_af[4]  ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "writeback_cycle:writeback_top"                                                           ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; Port      ; Type   ; Severity ; Details                                                                             ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+; o_wb_ctrl ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++-----------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "memory_cycle:memory_top|add_sub_32_bit:PC_add4_at_memory"                                                    ;
++----------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; Port     ; Type   ; Severity ; Details                                                                                                  ;
++----------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; B[31..3] ; Input  ; Info     ; Stuck at GND                                                                                             ;
+; B[1..0]  ; Input  ; Info     ; Stuck at GND                                                                                             ;
+; B[2]     ; Input  ; Info     ; Stuck at VCC                                                                                             ;
+; Sel      ; Input  ; Info     ; Stuck at GND                                                                                             ;
+; Cout     ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
++----------+--------+----------+----------------------------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:sltu_alu" ;
++------+-------+----------+------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                          ;
++------+-------+----------+------------------------------------------------------------------+
+; Sel  ; Input ; Info     ; Stuck at VCC                                                     ;
++------+-------+----------+------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu|add_sub_32_bit:SUB"            ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port          ; Type   ; Severity ; Details                                                                             ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+; Sel           ; Input  ; Info     ; Stuck at VCC                                                                        ;
+; Result[30..0] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu" ;
++------+-------+----------+-----------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                         ;
++------+-------+----------+-----------------------------------------------------------------+
+; Sel  ; Input ; Info     ; Stuck at GND                                                    ;
++------+-------+----------+-----------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "execute_cycle:execute_top|alu:alu_at_execute|add_sub_32_bit:add_sub_alu"                                 ;
++------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; Port ; Type   ; Severity ; Details                                                                                                  ;
++------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; Cout ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
++------+--------+----------+----------------------------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "execute_cycle:execute_top|brc:brc_at_execute|add_sub_32_bit:subtractor" ;
++------+-------+----------+--------------------------------------------------------------------------+
+; Port ; Type  ; Severity ; Details                                                                  ;
++------+-------+----------+--------------------------------------------------------------------------+
+; Sel  ; Input ; Info     ; Stuck at VCC                                                             ;
++------+-------+----------+--------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------+
+; Port Connectivity Checks: "execute_cycle:execute_top"           ;
++--------------------+--------+----------+------------------------+
+; Port               ; Type   ; Severity ; Details                ;
++--------------------+--------+----------+------------------------+
+; o_execute_inst_fwd ; Output ; Info     ; Explicitly unconnected ;
++--------------------+--------+----------+------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "decode_cycle:decoce_top|control_unit_new:control_unit_at_decode"                                                    ;
++-----------------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; Port            ; Type   ; Severity ; Details                                                                                                  ;
++-----------------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; o_insn_vld_ctrl ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
++-----------------+--------+----------+----------------------------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch"                                                       ;
++----------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; Port     ; Type   ; Severity ; Details                                                                                                  ;
++----------+--------+----------+----------------------------------------------------------------------------------------------------------+
+; B[31..3] ; Input  ; Info     ; Stuck at GND                                                                                             ;
+; B[1..0]  ; Input  ; Info     ; Stuck at GND                                                                                             ;
+; B[2]     ; Input  ; Info     ; Stuck at VCC                                                                                             ;
+; Sel      ; Input  ; Info     ; Stuck at GND                                                                                             ;
+; Cout     ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
++----------+--------+----------+----------------------------------------------------------------------------------------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:11     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+    Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+    Info: Processing started: Sun Dec 07 13:27:23 2025
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Kit_Pipeline -c Kit_Pipeline
+Warning (20028): Parallel compilation is not licensed and has been disabled
+Info (12021): Found 32 design units, including 32 entities, in source file kit_pipeline.sv
+    Info (12023): Found entity 1: Kit_Pipeline
+    Info (12023): Found entity 2: writeback_cycle
+    Info (12023): Found entity 3: slt_sltu
+    Info (12023): Found entity 4: shift_right_logical
+    Info (12023): Found entity 5: shift_right_arithmetic
+    Info (12023): Found entity 6: shift_left_logical
+    Info (12023): Found entity 7: regfile
+    Info (12023): Found entity 8: pc
+    Info (12023): Found entity 9: mux_3_1
+    Info (12023): Found entity 10: mux_2_1
+    Info (12023): Found entity 11: memory_cycle
+    Info (12023): Found entity 12: lsu_syn
+    Info (12023): Found entity 13: mask_st_create
+    Info (12023): Found entity 14: mask_ld_create
+    Info (12023): Found entity 15: datamem_syn
+    Info (12023): Found entity 16: demux_sel_mem
+    Info (12023): Found entity 17: output_buffer
+    Info (12023): Found entity 18: data_trsf
+    Info (12023): Found entity 19: mux_3_1_lsu
+    Info (12023): Found entity 20: inst_memory
+    Info (12023): Found entity 21: imm_gen
+    Info (12023): Found entity 22: hazard_detection
+    Info (12023): Found entity 23: full_adder
+    Info (12023): Found entity 24: forward
+    Info (12023): Found entity 25: fetch_cycle
+    Info (12023): Found entity 26: execute_cycle
+    Info (12023): Found entity 27: decode_cycle
+    Info (12023): Found entity 28: control_unit_new
+    Info (12023): Found entity 29: brc
+    Info (12023): Found entity 30: branch_taken
+    Info (12023): Found entity 31: alu
+    Info (12023): Found entity 32: add_sub_32_bit
+Warning (10236): Verilog HDL Implicit Net warning at Kit_Pipeline.sv(238): created implicit net for "insn_vld_wb"
+Info (12127): Elaborating entity "Kit_Pipeline" for the top level hierarchy
+Info (12128): Elaborating entity "fetch_cycle" for hierarchy "fetch_cycle:fetch_top"
+Info (12128): Elaborating entity "pc" for hierarchy "fetch_cycle:fetch_top|pc:pc_at_fetch"
+Info (12128): Elaborating entity "add_sub_32_bit" for hierarchy "fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch"
+Info (12128): Elaborating entity "full_adder" for hierarchy "fetch_cycle:fetch_top|add_sub_32_bit:pc_add4_at_fetch|full_adder:FA0"
+Info (12128): Elaborating entity "mux_2_1" for hierarchy "fetch_cycle:fetch_top|mux_2_1:pc_taken_at_fetch"
+Info (12128): Elaborating entity "inst_memory" for hierarchy "fetch_cycle:fetch_top|inst_memory:inst_memory_at_fetch"
+Warning (10850): Verilog HDL warning at Kit_Pipeline.sv(1474): number of words (149) in memory file does not match the number of elements in the address range [0:2048]
+Warning (10030): Net "imem.data_a" at Kit_Pipeline.sv(1472) has no driver or initial value, using a default initial value '0'
+Warning (10030): Net "imem.waddr_a" at Kit_Pipeline.sv(1472) has no driver or initial value, using a default initial value '0'
+Warning (10030): Net "imem.we_a" at Kit_Pipeline.sv(1472) has no driver or initial value, using a default initial value '0'
+Info (12128): Elaborating entity "decode_cycle" for hierarchy "decode_cycle:decoce_top"
+Warning (10036): Verilog HDL or VHDL warning at Kit_Pipeline.sv(1980): object "rd_addr_execute" assigned a value but never read
+Info (12128): Elaborating entity "regfile" for hierarchy "decode_cycle:decoce_top|regfile:regfile_at_decode"
+Info (12128): Elaborating entity "control_unit_new" for hierarchy "decode_cycle:decoce_top|control_unit_new:control_unit_at_decode"
+Info (12128): Elaborating entity "imm_gen" for hierarchy "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode"
+Info (12128): Elaborating entity "execute_cycle" for hierarchy "execute_cycle:execute_top"
+Info (12128): Elaborating entity "mux_3_1" for hierarchy "execute_cycle:execute_top|mux_3_1:mux_forward_operand_a"
+Info (12128): Elaborating entity "brc" for hierarchy "execute_cycle:execute_top|brc:brc_at_execute"
+Info (12128): Elaborating entity "alu" for hierarchy "execute_cycle:execute_top|alu:alu_at_execute"
+Info (12128): Elaborating entity "shift_left_logical" for hierarchy "execute_cycle:execute_top|alu:alu_at_execute|shift_left_logical:sll_alu"
+Info (12128): Elaborating entity "shift_right_logical" for hierarchy "execute_cycle:execute_top|alu:alu_at_execute|shift_right_logical:srl_alu"
+Info (12128): Elaborating entity "shift_right_arithmetic" for hierarchy "execute_cycle:execute_top|alu:alu_at_execute|shift_right_arithmetic:sra_alu"
+Info (12128): Elaborating entity "slt_sltu" for hierarchy "execute_cycle:execute_top|alu:alu_at_execute|slt_sltu:slt_alu"
+Info (12128): Elaborating entity "memory_cycle" for hierarchy "memory_cycle:memory_top"
+Warning (10036): Verilog HDL or VHDL warning at Kit_Pipeline.sv(779): object "ld_data_reg" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at Kit_Pipeline.sv(780): object "io_ledr_reg" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at Kit_Pipeline.sv(781): object "io_ledg_reg" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at Kit_Pipeline.sv(782): object "io_hex0_reg" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at Kit_Pipeline.sv(783): object "io_hex1_reg" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at Kit_Pipeline.sv(784): object "io_hex2_reg" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at Kit_Pipeline.sv(785): object "io_hex3_reg" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at Kit_Pipeline.sv(786): object "io_hex4_reg" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at Kit_Pipeline.sv(787): object "io_hex5_reg" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at Kit_Pipeline.sv(788): object "io_hex6_reg" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at Kit_Pipeline.sv(789): object "io_hex7_reg" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at Kit_Pipeline.sv(790): object "io_lcd_reg" assigned a value but never read
+Warning (10036): Verilog HDL or VHDL warning at Kit_Pipeline.sv(793): object "opcode_mem" assigned a value but never read
+Info (12128): Elaborating entity "lsu_syn" for hierarchy "memory_cycle:memory_top|lsu_syn:lsu_memory"
+Warning (10036): Verilog HDL or VHDL warning at Kit_Pipeline.sv(972): object "slt_sl_tmp" assigned a value but never read
+Info (12128): Elaborating entity "datamem_syn" for hierarchy "memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem"
+Info (12128): Elaborating entity "mask_st_create" for hierarchy "memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|mask_st_create:mask_st"
+Info (12128): Elaborating entity "mask_ld_create" for hierarchy "memory_cycle:memory_top|lsu_syn:lsu_memory|datamem_syn:mem|mask_ld_create:mask_ld"
+Info (12128): Elaborating entity "demux_sel_mem" for hierarchy "memory_cycle:memory_top|lsu_syn:lsu_memory|demux_sel_mem:demux_1"
+Info (12128): Elaborating entity "output_buffer" for hierarchy "memory_cycle:memory_top|lsu_syn:lsu_memory|output_buffer:outputperiph"
+Info (12128): Elaborating entity "data_trsf" for hierarchy "memory_cycle:memory_top|lsu_syn:lsu_memory|output_buffer:outputperiph|data_trsf:trsf_st"
+Info (12128): Elaborating entity "mux_3_1_lsu" for hierarchy "memory_cycle:memory_top|lsu_syn:lsu_memory|mux_3_1_lsu:mux31"
+Info (10264): Verilog HDL Case Statement information at Kit_Pipeline.sv(1448): all case item expressions in this case statement are onehot
+Info (12128): Elaborating entity "writeback_cycle" for hierarchy "writeback_cycle:writeback_top"
+Info (12128): Elaborating entity "hazard_detection" for hierarchy "hazard_detection:hazard_load_top"
+Info (12128): Elaborating entity "branch_taken" for hierarchy "branch_taken:branch_taken_top"
+Info (12128): Elaborating entity "forward" for hierarchy "forward:forward_top"
+Warning (10036): Verilog HDL or VHDL warning at Kit_Pipeline.sv(1573): object "opcode_fwd" assigned a value but never read
+Warning (13046): Tri-state node(s) do not directly drive top-level pin(s)
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[0]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[1]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[2]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[3]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[4]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[5]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[6]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[7]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[8]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[9]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[10]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[11]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[12]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[13]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[14]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[15]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[16]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[17]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[18]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[19]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[20]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[21]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[22]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[23]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[24]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[25]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[26]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[27]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[28]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[29]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[30]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "execute_cycle:execute_top|alu:alu_at_execute|o_alu_data[31]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[0]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[1]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[2]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[3]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[4]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[5]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[6]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[7]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[8]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[9]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[10]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[11]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[12]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[13]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[14]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[15]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[16]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[17]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[18]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[19]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[20]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[21]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[22]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[23]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[24]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[25]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[26]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[27]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[28]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[29]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[30]" feeding internal logic into a wire
+    Warning (13049): Converted tri-state buffer "decode_cycle:decoce_top|imm_gen:imm_gen_at_decode|o_imm_out[31]" feeding internal logic into a wire
+Critical Warning (127005): Memory depth (4096) in the design file differs from memory depth (2049) in the Memory Initialization File "D:/HCMUT/Year_2025_2026/251/Conmputer_Organization/milestone_3/03_Quartus/db/Kit_Pipeline.ram0_inst_memory_38b34dae.hdl.mif" -- setting initial value for remaining addresses to 0
+Warning (127007): Memory Initialization File or Hexadecimal (Intel-Format) File "D:/HCMUT/Year_2025_2026/251/Conmputer_Organization/milestone_3/03_Quartus/db/Kit_Pipeline.ram0_inst_memory_38b34dae.hdl.mif" contains "don't care" values -- overwriting them with 0s
+Warning (12241): 4 hierarchies have connectivity warnings - see the Connectivity Checks report folder
+Info (17049): 3 registers lost all their fanouts during netlist optimizations.
+Info (144001): Generated suppressed messages file D:/HCMUT/Year_2025_2026/251/Conmputer_Organization/milestone_3/03_Quartus/output_files/Kit_Pipeline.map.smsg
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Info (21057): Implemented 5411 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 34 input pins
+    Info (21059): Implemented 187 output pins
+    Info (21061): Implemented 5190 logic cells
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 90 warnings
+    Info: Peak virtual memory: 4649 megabytes
+    Info: Processing ended: Sun Dec 07 13:27:37 2025
+    Info: Elapsed time: 00:00:14
+    Info: Total CPU time (on all processors): 00:00:14
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in D:/HCMUT/Year_2025_2026/251/Conmputer_Organization/milestone_3/03_Quartus/output_files/Kit_Pipeline.map.smsg.
+
+
